@@ -1,27 +1,58 @@
+/** @format */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 214, 219, 220;
+	--background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 0, 0, 0;
+		--background-end-rgb: 0, 0, 0;
+	}
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	color: rgb(var(--foreground-rgb));
+	background: linear-gradient(
+			to bottom,
+			transparent,
+			rgb(var(--background-end-rgb))
+		)
+		rgb(var(--background-start-rgb));
+}
+
+@layer components {
+	.primary-button {
+		@apply rounded-full px-4 py-2 cursor-pointer
+    outline-none transition duration-300 ease-in-out dark:text-bgAccentLight dark:hover:text-bgAccentLight 
+    dark:hover:bg-bgAccentLight/10 hover:bg-bgAccentDark/10 text-bgAccentDark active:ring-2 active:ring-bgAccentDark dark:active:ring-bgAccentLight;
+	}
+	.secondary-button {
+		@apply rounded-full border-2 border-bgAccentDark px-4 
+    py-2 text-bgAccentDark hover:bg-bgAccentDark hover:border-bgAccentLight 
+	 outline-none transition duration-300 ease-in-out dark:border-bgAccentLight dark:bg-bgAccentDark
+	 bg-bgAccentLight 
+    dark:text-bgAccentLight dark:hover:bg-bgAccentLight/10 hover:bg-bgAccentDark/10;
+	}
+	.primary-input {
+		@apply rounded-full border-2 border-bgAccentDark px-4 
+    py-2 text-bgAccentDark outline-none transition duration-300 ease-in-out hover:bg-bgAccentDark
+    hover:text-bgAccentDark dark:border-bgAccentLight dark:bg-bgAccentDark bg-bgAccentLight
+    dark:text-bgAccentLight dark:hover:text-bgAccentLight dark:hover:bg-bgAccentLight/10 hover:bg-bgAccentDark/10
+	placeholder-bgAccentDark/50 dark:placeholder-bgAccentLight/50;
+	}
+	.error-input {
+		@apply rounded-full border-2 border-red-600 px-4 
+    py-2 text-bgAccentDark outline-none transition duration-300 ease-in-out
+	 dark:border-red-600 dark:bg-bgAccentDark bg-bgAccentLight
+    dark:text-red-600 dark:hover:bg-red-600/10 hover:bg-red-600/10
+	placeholder-red-600 dark:placeholder-red-300;
+	}
 }
