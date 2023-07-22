@@ -1,14 +1,41 @@
 /** @format */
 
-import React, { useState } from 'react';
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import React, { useState, useEffect } from 'react';
+import {
+	Cog,
+	Search as SearchIcon,
+	X,
+	GraduationCap,
+	Rocket,
+	Shirt,
+	Lamp,
+	Headphones,
+} from 'lucide-react';
+
+import { useWindowSize } from 'usehooks-ts';
 
 const Search = () => {
-	type Category = 'tech' | 'lifestyle' | 'Essentials' | 'Fashion' | 'home';
-
+	type Category = 'Tech' | 'LifeStyle' | 'Essentials' | 'Home' | 'Learn';
+	const { width, height } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null
 	);
+	const [menuOpen, setMenuOpen] = useState(false);
+	const [hideMenu, setHideMenu] = useState(false);
+
+	useEffect(() => {
+		if (width && height) {
+			if (width > 800) {
+				setMenuOpen(true);
+				setSelectedCategory(null);
+				setHideMenu(false);
+			} else {
+				setMenuOpen(false);
+				setHideMenu(true);
+			}
+		}
+	}, [width, height]);
+
 	const handleCategoryClick = (category: Category) => {
 		setSelectedCategory(category);
 	};
@@ -16,76 +43,126 @@ const Search = () => {
 	return (
 		<form className='md:w-3/5 space-y-4 pt-8 w-5/6 flex flex-col items-center justify-center'>
 			<div className='w-full flex items-center space-x-2'>
+				{hideMenu && (
+					<button
+						className='primary-button'
+						onClick={() => setMenuOpen(!menuOpen)}
+						type='button'
+					>
+						<Cog className='h-6 w-6' />
+					</button>
+				)}
 				<input
 					className='w-full primary-input flex'
 					type='text'
 					placeholder='Search'
+					required
 				/>
 				<button
-					className='bg-bgAccentDark/10 dark:bg-bgAccentLight/10 
-                rounded-xl p-2'
+					className='primary-button'
 					onClick={() => console.log('search')}
 					type='submit'
 				>
-					<MagnifyingGlassIcon className='h-6 w-6 flex' />
+					<SearchIcon className='h-6 w-6' />
 				</button>
 			</div>
-			<div className='md:flex flex-row gap-4 items-center justify-start w-full grid grid-cols-3'>
-				<button
-					className={`secondary-button text-xs
-						${selectedCategory === 'tech' && 'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'}
-					`}
-					onClick={() => handleCategoryClick('tech')}
-					type='button'
-				>
-					Tech
-				</button>
-				<button
-					className={`secondary-button text-xs
-						${
-							selectedCategory === 'lifestyle' &&
-							'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'
-						}
-					`}
-					onClick={() => handleCategoryClick('lifestyle')}
-					type='button'
-				>
-					Lifestyle
-				</button>
-				<button
-					className={`secondary-button text-xs
-						${
-							selectedCategory === 'Fashion' &&
-							'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'
-						}
-					`}
-					onClick={() => handleCategoryClick('Fashion')}
-					type='button'
-				>
-					Fashion
-				</button>
-				<button
-					className={`secondary-button text-xs
-						${
-							selectedCategory === 'Essentials' &&
-							'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'
-						}
-					`}
-					onClick={() => handleCategoryClick('Essentials')}
-					type='button'
-				>
-					Essentials
-				</button>
-				{selectedCategory !== null && (
+			{menuOpen && (
+				<div className='md:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid sm:grid-cols-3 grid-cols-2'>
 					<button
-						className='primary-button text-xs justify-center flex'
-						onClick={() => setSelectedCategory(null)}
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Tech' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('Tech');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
 						type='button'
 					>
-						<XMarkIcon className='h-4 w-4 flex' />
+						<Headphones className='h-4' />
+						Tech
 					</button>
-				)}
-			</div>
+					<button
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'LifeStyle' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('LifeStyle');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<Shirt className='h-4' />
+						Lifestyle
+					</button>
+					<button
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Home' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('Home');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<Lamp className='h-4' />
+						Home
+					</button>
+					<button
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Essentials' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('Essentials');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<Rocket className='h-4' />
+						Essentials
+					</button>
+					<button
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Learn' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('Learn');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<GraduationCap className='h-4' />
+						Learn
+					</button>
+				</div>
+			)}
+
+			{selectedCategory !== null && (
+				<div className='flex items-center justify-center w-full'>
+					<button
+						className='primary-button text-xs justify-end flex flex-row items-center space-x-1'
+						onClick={() => {
+							setSelectedCategory(null);
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<X className='h-5 w-5 text-red-500' />
+						<span className='text-sm'>{selectedCategory}</span>
+					</button>
+				</div>
+			)}
 		</form>
 	);
 };
