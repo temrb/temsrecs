@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { ShoppingBagIcon, BookOpenIcon } from '@heroicons/react/24/solid';
+import { Store, BookOpen } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 
 const Header = () => {
@@ -18,24 +18,24 @@ const Header = () => {
 				<h1 className='text-3xl font-bold'>tem&apos;s recs</h1>
 				<div className='gap-4 flex'>
 					<button
-						className={`primary-button
-						${pathname === '/' && 'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'}
+						className={`select-button
+						${pathname === '/' && 'select-button-active'}
 					`}
 						onClick={() => router.push('/')}
 					>
 						<span className='gap-2 flex items-center'>
-							<ShoppingBagIcon className='h-6 w-6' />
-							Shop
+							<Store className='h-6 w-6' />
+							Store
 						</span>
 					</button>
 					<button
-						className={`primary-button
-						${pathname === '/blog' && 'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'}
+						className={`select-button
+						${pathname === '/blog' && 'select-button-active'}
 					`}
 						onClick={() => router.push('/blog')}
 					>
 						<span className='gap-2 flex items-center'>
-							<BookOpenIcon className='h-6 w-6' />
+							<BookOpen className='h-6 w-6' />
 							Blog
 						</span>
 					</button>

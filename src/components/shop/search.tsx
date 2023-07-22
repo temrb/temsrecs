@@ -2,14 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-	MagnifyingGlassIcon,
-	XMarkIcon,
-	Cog6ToothIcon,
-} from '@heroicons/react/24/solid';
+	Cog,
+	Search as SearchIcon,
+	X,
+	GraduationCap,
+	Rocket,
+	Shirt,
+	Lamp,
+	Headphones,
+} from 'lucide-react';
+
 import { useWindowSize } from 'usehooks-ts';
 
 const Search = () => {
-	type Category = 'Tech' | 'Lifestyle' | 'Essentials' | 'Fashion' | 'Home';
+	type Category = 'Tech' | 'LifeStyle' | 'Essentials' | 'Home' | 'Learn';
 	const { width, height } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null
@@ -39,12 +45,11 @@ const Search = () => {
 			<div className='w-full flex items-center space-x-2'>
 				{hideMenu && (
 					<button
-						className='bg-bgAccentDark/10 dark:bg-bgAccentLight/10 
-                rounded-xl p-2'
+						className='primary-button'
 						onClick={() => setMenuOpen(!menuOpen)}
 						type='button'
 					>
-						<Cog6ToothIcon className='h-6 w-6 flex' />
+						<Cog className='h-6 w-6' />
 					</button>
 				)}
 				<input
@@ -54,19 +59,18 @@ const Search = () => {
 					required
 				/>
 				<button
-					className='bg-bgAccentDark/10 dark:bg-bgAccentLight/10 
-                rounded-xl p-2'
+					className='primary-button'
 					onClick={() => console.log('search')}
 					type='submit'
 				>
-					<MagnifyingGlassIcon className='h-6 w-6 flex' />
+					<SearchIcon className='h-6 w-6' />
 				</button>
 			</div>
 			{menuOpen && (
-				<div className='md:flex flex-row sm:gap-4 gap-3 items-center justify-start w-full grid sm:grid-cols-3 grid-cols-2'>
+				<div className='md:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid sm:grid-cols-3 grid-cols-2'>
 					<button
-						className={`secondary-button text-xs
-						${selectedCategory === 'Tech' && 'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'}
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Tech' && 'select-button-active'}
 					`}
 						onClick={() => {
 							handleCategoryClick('Tech');
@@ -76,62 +80,27 @@ const Search = () => {
 						}}
 						type='button'
 					>
+						<Headphones className='h-4' />
 						Tech
 					</button>
 					<button
-						className={`secondary-button text-xs
-						${
-							selectedCategory === 'Lifestyle' &&
-							'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'
-						}
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'LifeStyle' && 'select-button-active'}
 					`}
 						onClick={() => {
-							handleCategoryClick('Lifestyle');
+							handleCategoryClick('LifeStyle');
 							if (width && width < 800) {
 								menuOpen && setMenuOpen(false);
 							}
 						}}
 						type='button'
 					>
+						<Shirt className='h-4' />
 						Lifestyle
 					</button>
 					<button
-						className={`secondary-button text-xs
-						${
-							selectedCategory === 'Fashion' &&
-							'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'
-						}
-					`}
-						onClick={() => {
-							handleCategoryClick('Fashion');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						Fashion
-					</button>
-					<button
-						className={`secondary-button text-xs
-						${
-							selectedCategory === 'Essentials' &&
-							'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'
-						}
-					`}
-						onClick={() => {
-							handleCategoryClick('Essentials');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						Essentials
-					</button>
-					<button
-						className={`secondary-button text-xs
-						${selectedCategory === 'Home' && 'bg-bgAccentDark/10 dark:bg-bgAccentLight/10'}
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Home' && 'select-button-active'}
 					`}
 						onClick={() => {
 							handleCategoryClick('Home');
@@ -141,13 +110,44 @@ const Search = () => {
 						}}
 						type='button'
 					>
+						<Lamp className='h-4' />
 						Home
+					</button>
+					<button
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Essentials' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('Essentials');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<Rocket className='h-4' />
+						Essentials
+					</button>
+					<button
+						className={`select-button text-xs items-center flex space-x-2
+						${selectedCategory === 'Learn' && 'select-button-active'}
+					`}
+						onClick={() => {
+							handleCategoryClick('Learn');
+							if (width && width < 800) {
+								menuOpen && setMenuOpen(false);
+							}
+						}}
+						type='button'
+					>
+						<GraduationCap className='h-4' />
+						Learn
 					</button>
 				</div>
 			)}
 
 			{selectedCategory !== null && (
-				<div className='flex items-center justify-end w-full'>
+				<div className='flex items-center justify-center w-full'>
 					<button
 						className='primary-button text-xs justify-end flex flex-row items-center space-x-1'
 						onClick={() => {
@@ -158,8 +158,8 @@ const Search = () => {
 						}}
 						type='button'
 					>
+						<X className='h-5 w-5 text-red-500' />
 						<span className='text-sm'>{selectedCategory}</span>
-						<XMarkIcon className='h-4 w-4 flex' />
 					</button>
 				</div>
 			)}
