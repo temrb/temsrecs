@@ -6,7 +6,6 @@ import { ShoppingBasket, Share2, ClipboardCheck } from 'lucide-react';
 import TikTokLogo from '../../../public/logos/tiktok.logo';
 import InstaLogo from '../../../public/logos/insta.logo';
 import ThreadsLogo from '../../../public/logos/threads.logo';
-import Link from 'next/link';
 
 interface Props {
 	image: string;
@@ -33,19 +32,20 @@ const ProductItem = (props: Props) => {
 	};
 
 	return (
-		<div
-			className='w-full h-44 group space-y-2'
-			onMouseLeave={() => {
-				setCopied(false);
-			}}
-		>
+		<div className='group flex flex-col'>
 			{/* image */}
-			<div className='w-full h-full relative'>
+			<div
+				className='relative w-full h-44'
+				onMouseLeave={() => {
+					setCopied(false);
+				}}
+			>
 				<Image
 					src={props.image}
 					layout='fill'
-					objectFit='cover'
+					style={{ objectFit: 'cover' }}
 					alt={props.imageAlt}
+					className='rounded-t-xl'
 				/>
 				<div
 					className='absolute top-0 left-0 w-full h-full flex items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
@@ -83,7 +83,7 @@ const ProductItem = (props: Props) => {
 			</div>
 
 			{/* socials */}
-			<div className='flex justify-evenly'>
+			<div className='flex justify-evenly dark:bg-bgAccentLight/20 bg-bgAccentDark/20 py-3 rounded-b-xl'>
 				<button
 					className='social-button'
 					onClick={() => {

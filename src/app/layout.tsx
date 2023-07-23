@@ -38,7 +38,9 @@ export default function RootLayout({
           `}
 				</Script>
 			</head>
-			<body className={poppins.className}>
+			<body
+				className={`${poppins.className} dark:bg-bgAccentDark bg-bgAccentLight`}
+			>
 				<Ga4>
 					<Header />
 					<div className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>

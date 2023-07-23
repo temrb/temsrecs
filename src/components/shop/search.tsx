@@ -41,7 +41,7 @@ const Search = () => {
 	};
 
 	return (
-		<form className='md:w-3/5 space-y-4 pt-8 w-5/6 flex flex-col items-center justify-center'>
+		<form className='md:w-3/5 space-y-4 pt-8 sm:w-5/6 w-full flex flex-col items-center justify-center'>
 			<div className='w-full flex items-center space-x-2'>
 				{hideMenu && (
 					<button
@@ -67,7 +67,7 @@ const Search = () => {
 				</button>
 			</div>
 			{menuOpen && (
-				<div className='md:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid sm:grid-cols-3 grid-cols-2'>
+				<div className='md:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid grid-cols-3'>
 					<button
 						className={`select-button text-xs items-center flex space-x-2
 						${selectedCategory === 'Tech' && 'select-button-active'}

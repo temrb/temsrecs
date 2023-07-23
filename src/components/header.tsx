@@ -12,7 +12,7 @@ const Header = () => {
 	return (
 		<header
 			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark 
-						h-44 sticky top-0'
+						h-44 sticky top-0 z-20'
 		>
 			<div className='flex bg-bgAccentLight dark:bg-bgAccentDark z-20 flex-col w-full h-full justify-center items-center space-y-4'>
 				<h1 className='text-3xl font-bold'>tem&apos;s recs</h1>
