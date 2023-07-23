@@ -35,7 +35,7 @@ const ProductItem = (props: Props) => {
 		<div className='group flex flex-col'>
 			{/* image */}
 			<div
-				className='relative w-full h-44'
+				className='relative w-full h-44 dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-t-xl'
 				onMouseLeave={() => {
 					setCopied(false);
 				}}
@@ -43,9 +43,8 @@ const ProductItem = (props: Props) => {
 				<Image
 					src={props.image}
 					layout='fill'
-					style={{ objectFit: 'cover' }}
+					style={{ objectFit: 'contain' }}
 					alt={props.imageAlt}
-					className='rounded-t-xl'
 				/>
 				<div
 					className='absolute top-0 left-0 w-full h-full flex items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity

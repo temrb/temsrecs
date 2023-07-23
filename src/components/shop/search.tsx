@@ -15,7 +15,7 @@ import {
 import { useWindowSize } from 'usehooks-ts';
 
 const Search = () => {
-	type Category = 'Tech' | 'LifeStyle' | 'Essentials' | 'Home' | 'Learn';
+	type Category = 'Tech' | 'Essentials' | 'Home' | 'Learn';
 	const { width, height } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null
@@ -82,21 +82,6 @@ const Search = () => {
 					>
 						<Headphones className='h-4' />
 						Tech
-					</button>
-					<button
-						className={`select-button text-xs items-center flex space-x-2
-						${selectedCategory === 'LifeStyle' && 'select-button-active'}
-					`}
-						onClick={() => {
-							handleCategoryClick('LifeStyle');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						<Shirt className='h-4' />
-						Lifestyle
 					</button>
 					<button
 						className={`select-button text-xs items-center flex space-x-2
