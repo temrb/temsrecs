@@ -3,12 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ArrowUpRight, Share2, ClipboardCheck } from 'lucide-react';
-import TikTokLogo from '../../../public/logos/tiktok.logo';
-import InstaLogo from '../../../public/logos/insta.logo';
-import ThreadsLogo from '../../../public/logos/threads.logo';
-import TwitterLogo from '../../../public/logos/twitter.logo';
-import YoutubeLogo from '../../../public/logos/youtube.logo';
-import FacebookLogo from '../../../public/logos/facebook.logo';
 
 interface Props {
 	image: string;
@@ -48,7 +42,7 @@ const ProductItem = (props: Props) => {
 					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 				/>
 				<div
-					className='absolute top-0 left-0 w-full h-full flex items-end p-2 lg:items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
+					className='absolute top-0 left-0 w-full h-full flex p-2 items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
                         ease-in-out duration-200'
 				>
 					<button

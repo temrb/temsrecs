@@ -8,6 +8,7 @@ import TwitterLogo from '../../public/logos/twitter.logo';
 import YoutubeLogo from '../../public/logos/youtube.logo';
 import ThreadsLogo from '../../public/logos/threads.logo';
 import MediumLogo from '../../public/logos/medium.logo';
+import AmazonLogo from '../../public/logos/amazon.logo';
 
 interface Props {
 	link: string;
@@ -18,7 +19,8 @@ interface Props {
 		| 'twitter'
 		| 'youtube'
 		| 'threads'
-		| 'medium';
+		| 'medium'
+		| 'amazon';
 }
 
 const SocialItems = (props: Props) => {
@@ -43,6 +45,8 @@ const SocialItems = (props: Props) => {
 				<ThreadsLogo width={20} height={20} />
 			) : props.type === 'medium' ? (
 				<MediumLogo width={20} height={20} />
+			) : props.type === 'amazon' ? (
+				<AmazonLogo width={20} height={20} />
 			) : null}
 		</button>
 	);
