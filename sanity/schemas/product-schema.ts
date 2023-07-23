@@ -16,6 +16,19 @@ const product = {
 			title: 'Tags',
 			type: 'array',
 			of: [{ type: 'string' }],
+			options: {
+				list: [
+					{ title: 'Tech', value: 'tech' },
+					{ title: 'Home', value: 'home' },
+					{ title: 'Essentials', value: 'essentials' },
+					{ title: 'Career', value: 'career' },
+					{ title: 'Health', value: 'health' },
+					{ title: 'Finance', value: 'finance' },
+					{ title: 'Travel', value: 'travel' },
+					{ title: 'Food', value: 'food' },
+					{ title: 'Other', value: 'other' },
+				],
+			},
 			validation: (Rule: any) => Rule.required(),
 		},
 		{

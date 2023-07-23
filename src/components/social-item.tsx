@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import TikTokLogo from '../../public/logos/tiktok.logo';
 import FacebookLogo from '../../public/logos/facebook.logo';
 import InstaLogo from '../../public/logos/insta.logo';

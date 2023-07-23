@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import {
 	Cog,
 	Search as SearchIcon,
@@ -9,12 +9,39 @@ import {
 	Rocket,
 	Lamp,
 	Headphones,
+	CircleEllipsis,
+	Pizza,
+	PlaneTakeoff,
+	Coins,
+	Dumbbell,
 } from 'lucide-react';
 
 import { useWindowSize } from 'usehooks-ts';
+type Category =
+	| 'Tech'
+	| 'Essentials'
+	| 'Home'
+	| 'Career'
+	| 'Health'
+	| 'Finance'
+	| 'Travel'
+	| 'Fitness'
+	| 'Food'
+	| 'Other';
 
 const Search = () => {
-	type Category = 'Tech' | 'Essentials' | 'Home' | 'Career';
+	const categories: { id: number; name: Category; icon: ReactNode }[] = [
+		{ id: 1, name: 'Tech', icon: <Headphones className='h-4' /> },
+		{ id: 2, name: 'Essentials', icon: <Rocket className='h-4' /> },
+		{ id: 3, name: 'Home', icon: <Lamp className='h-4' /> },
+		{ id: 4, name: 'Career', icon: <GraduationCap className='h-4' /> },
+		{ id: 5, name: 'Health', icon: <Dumbbell className='h-4' /> },
+		{ id: 6, name: 'Finance', icon: <Coins className='h-4' /> },
+		{ id: 7, name: 'Travel', icon: <PlaneTakeoff className='h-4' /> },
+		{ id: 8, name: 'Fitness', icon: <Dumbbell className='h-4' /> },
+		{ id: 9, name: 'Food', icon: <Pizza className='h-4' /> },
+		{ id: 10, name: 'Other', icon: <CircleEllipsis className='h-4' /> },
+	];
 	const { width } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null
@@ -24,7 +51,7 @@ const Search = () => {
 
 	useEffect(() => {
 		if (width) {
-			if (width > 800) {
+			if (width >= 1024) {
 				setMenuOpen(true);
 				setSelectedCategory(null);
 				setHideMenu(false);
@@ -39,8 +66,32 @@ const Search = () => {
 		setSelectedCategory(category);
 	};
 
+	const CategoryButton = ({
+		category,
+		icon,
+	}: {
+		category: Category;
+		icon: ReactNode;
+	}) => (
+		<button
+			className={`select-button text-xs items-center flex space-x-2 ${
+				selectedCategory === category && 'select-button-active'
+			}`}
+			onClick={() => {
+				handleCategoryClick(category);
+				if (width < 1024) {
+					setMenuOpen(false);
+				}
+			}}
+			type='button'
+		>
+			{icon}
+			{category}
+		</button>
+	);
+
 	return (
-		<form className='md:w-3/5 space-y-4 p-4 pt-8 sm:w-5/6 w-full flex flex-col items-center justify-center'>
+		<form className='lg:w-3/5 md:w-5/6 space-y-4 p-4 pt-8 w-full flex flex-col items-center justify-center'>
 			<div className='w-full flex items-center space-x-2'>
 				{hideMenu && (
 					<button
@@ -66,67 +117,14 @@ const Search = () => {
 				</button>
 			</div>
 			{menuOpen && (
-				<div className='md:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid grid-cols-3'>
-					<button
-						className={`select-button text-xs items-center flex space-x-2
-						${selectedCategory === 'Tech' && 'select-button-active'}
-					`}
-						onClick={() => {
-							handleCategoryClick('Tech');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						<Headphones className='h-4' />
-						Tech
-					</button>
-					<button
-						className={`select-button text-xs items-center flex space-x-2
-						${selectedCategory === 'Home' && 'select-button-active'}
-					`}
-						onClick={() => {
-							handleCategoryClick('Home');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						<Lamp className='h-4' />
-						Home
-					</button>
-					<button
-						className={`select-button text-xs items-center flex space-x-2
-						${selectedCategory === 'Essentials' && 'select-button-active'}
-					`}
-						onClick={() => {
-							handleCategoryClick('Essentials');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						<Rocket className='h-4' />
-						Essentials
-					</button>
-					<button
-						className={`select-button text-xs items-center flex space-x-2
-						${selectedCategory === 'Career' && 'select-button-active'}
-					`}
-						onClick={() => {
-							handleCategoryClick('Career');
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
-							}
-						}}
-						type='button'
-					>
-						<GraduationCap className='h-4' />
-						Career
-					</button>
+				<div className='lg:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid md:grid-cols-5 sm:grid-cols-4 grid-cols-3'>
+					{categories.map((category) => (
+						<CategoryButton
+							key={category.id}
+							category={category.name}
+							icon={category.icon}
+						/>
+					))}
 				</div>
 			)}
 
@@ -136,8 +134,8 @@ const Search = () => {
 						className='primary-button text-xs justify-end flex flex-row items-center space-x-1'
 						onClick={() => {
 							setSelectedCategory(null);
-							if (width && width < 800) {
-								menuOpen && setMenuOpen(false);
+							if (!menuOpen) {
+								setMenuOpen(false);
 							}
 						}}
 						type='button'

@@ -5,12 +5,29 @@ import React, { useState } from 'react';
 import { Store, BookOpen } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import SocialItems from './social-item';
+import { SocialMedia } from '../../types/SocialMedia';
 
 const Header = () => {
 	const router = useRouter();
 	const pathname = usePathname();
 
 	const [viewSocials, setViewSocials] = useState(false);
+
+	const socialItems: SocialMedia[] = [
+		{ id: 1, type: 'tiktok', link: 'https://www.tiktok.com/@tem.tk' },
+		{ id: 2, type: 'tiktok', link: 'https://www.tiktok.com/@tem.toks' },
+		{ id: 3, type: 'insta', link: 'https://www.instagram.com/' },
+		{ id: 4, type: 'twitter', link: 'https://twitter.com/' },
+		{ id: 5, type: 'youtube', link: 'https://www.youtube.com/' },
+		{ id: 6, type: 'threads', link: 'https://threads.net/' },
+		{ id: 7, type: 'medium', link: 'https://medium.com/' },
+		{
+			id: 8,
+			type: 'amazon',
+			link: 'https://www.amazon.com/shop/influencer-4c14be7c?ref_=cm_sw_r_cp_ud_aipsfshop_aipsfinfluencer-4c14be7c_6XM77RBD8PYH8D7TFPBR',
+		},
+		{ id: 9, type: 'facebook', link: 'https://facebook.com/' },
+	];
 
 	return (
 		<header
@@ -28,18 +45,9 @@ const Header = () => {
 
 			{viewSocials ? (
 				<div className='flex pt-4 flex-wrap flex-row w-full gap-5 justify-center items-center'>
-					<SocialItems type='tiktok' link='https://www.tiktok.com/@tem.tk' />
-					<SocialItems type='tiktok' link='https://www.tiktok.com/@tem.toks' />
-					<SocialItems type='insta' link='https://www.instagram.com/' />
-					<SocialItems type='twitter' link='https://twitter.com/' />
-					<SocialItems type='youtube' link='https://www.youtube.com/' />
-					<SocialItems type='threads' link='https://threads.net/' />
-					<SocialItems type='medium' link='https://medium.com/' />
-					<SocialItems
-						type='amazon'
-						link='https://www.amazon.com/shop/influencer-4c14be7c?ref_=cm_sw_r_cp_ud_aipsfshop_aipsfinfluencer-4c14be7c_6XM77RBD8PYH8D7TFPBR'
-					/>
-					<SocialItems type='facebook' link='https://facebook.com/' />
+					{socialItems.map((item) => (
+						<SocialItems key={item.id} type={item.type} link={item.link} />
+					))}
 				</div>
 			) : (
 				<div

@@ -6,7 +6,7 @@ import { Product } from '../types/Product';
 import { Blog } from '../types/Blog';
 
 //TODO
-export async function getProjects(): Promise<Product[]> {
+export async function getProducts(): Promise<Product[]> {
 	return client.fetch(
 		groq`*[_type == "project"]{
       _id,
@@ -20,22 +20,7 @@ export async function getProjects(): Promise<Product[]> {
 	);
 }
 
-export async function getProject(slug: string): Promise<Product> {
-	return client.fetch(
-		groq`*[_type == "project" && slug.current == $slug][0]{
-      _id,
-      _createdAt,
-      name,
-      "slug": slug.current,
-      "image": image.asset->url,
-      url,
-      content
-    }`,
-		{ slug }
-	);
-}
-
-export async function getPages(): Promise<Blog[]> {
+export async function getPage(): Promise<Blog[]> {
 	return client.fetch(
 		groq`*[_type == "page"]{
       _id,
@@ -46,7 +31,7 @@ export async function getPages(): Promise<Blog[]> {
 	);
 }
 
-export async function getPage(slug: string): Promise<Blog> {
+export async function getPost(slug: string): Promise<Blog> {
 	return client.fetch(
 		groq`*[_type == "page" && slug.current == $slug][0]{
       _id,
