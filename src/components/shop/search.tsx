@@ -15,7 +15,7 @@ import { useWindowSize } from 'usehooks-ts';
 
 const Search = () => {
 	type Category = 'Tech' | 'Essentials' | 'Home' | 'Career';
-	const { width, height } = useWindowSize();
+	const { width } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null
 	);
@@ -23,7 +23,7 @@ const Search = () => {
 	const [hideMenu, setHideMenu] = useState(false);
 
 	useEffect(() => {
-		if (width && height) {
+		if (width) {
 			if (width > 800) {
 				setMenuOpen(true);
 				setSelectedCategory(null);
@@ -33,7 +33,7 @@ const Search = () => {
 				setHideMenu(true);
 			}
 		}
-	}, [width, height]);
+	}, [width]);
 
 	const handleCategoryClick = (category: Category) => {
 		setSelectedCategory(category);

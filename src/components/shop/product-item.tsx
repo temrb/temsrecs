@@ -14,14 +14,6 @@ interface Props {
 	image: string;
 	imageAlt: string;
 	productLink: string;
-	socialLinks: {
-		tiktok: string;
-		insta: string;
-		facebook: string;
-		youtube: string;
-		twitter: string;
-		threads: string;
-	};
 }
 
 const ProductItem = (props: Props) => {
@@ -37,7 +29,7 @@ const ProductItem = (props: Props) => {
 		<div className='group flex flex-col'>
 			{/* image */}
 			<div
-				className='relative w-full h-44 dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-t-xl'
+				className='relative w-full h-44 dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'
 				onMouseLeave={() => {
 					setCopied(false);
 				}}
@@ -56,7 +48,7 @@ const ProductItem = (props: Props) => {
 					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 				/>
 				<div
-					className='absolute top-0 left-0 w-full h-full flex items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
+					className='absolute top-0 left-0 w-full h-full flex items-end p-2 lg:items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
                         ease-in-out duration-200'
 				>
 					<button
@@ -71,9 +63,9 @@ const ProductItem = (props: Props) => {
 							setBlur(false);
 						}}
 					>
-						<div className='flex items-center space-x-2'>
-							<ArrowUpRight className='h-6' />
-							<span className='text-xl'>Go to item</span>
+						<div className='flex items-center space-x-1'>
+							<ArrowUpRight className='lg:h-6 h-5' />
+							<span className='lg:text-xl text-md'>Go to item</span>
 						</div>
 					</button>
 				</div>
@@ -98,58 +90,6 @@ const ProductItem = (props: Props) => {
 						</button>
 					</div>
 				</div>
-			</div>
-
-			{/* socials */}
-			<div className='grid grid-cols-3 justify-center justify-items-center dark:bg-bgAccentLight/20 bg-bgAccentDark/20 rounded-b-xl p-3 gap-4'>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socialLinks.tiktok, '_blank');
-					}}
-				>
-					<TikTokLogo width={20} height={20} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socialLinks.insta, '_blank');
-					}}
-				>
-					<InstaLogo width={20} height={20} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socialLinks.facebook, '_blank');
-					}}
-				>
-					<FacebookLogo width={20} height={20} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socialLinks.youtube, '_blank');
-					}}
-				>
-					<YoutubeLogo width={20} height={20} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socialLinks.twitter, '_blank');
-					}}
-				>
-					<TwitterLogo width={20} height={20} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socialLinks.threads, '_blank');
-					}}
-				>
-					<ThreadsLogo width={20} height={20} />
-				</button>
 			</div>
 		</div>
 	);

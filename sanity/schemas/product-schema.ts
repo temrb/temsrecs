@@ -42,44 +42,6 @@ const product = {
 			type: 'url',
 			validation: (Rule: any) => Rule.required(),
 		},
-		{
-			name: 'links',
-			title: 'Links',
-			type: 'object',
-			validation: (Rule: any) => Rule.required(),
-			fields: [
-				{
-					name: 'tiktok',
-					title: 'TikTok',
-					type: 'string',
-				},
-				{
-					name: 'instagram',
-					title: 'Instagram',
-					type: 'string',
-				},
-				{
-					name: 'facebook',
-					title: 'Facebook',
-					type: 'string',
-				},
-				{
-					name: 'twitter',
-					title: 'Twitter',
-					type: 'string',
-				},
-				{
-					name: 'youtube',
-					title: 'YouTube',
-					type: 'string',
-				},
-				{
-					name: 'threads',
-					title: 'Threads',
-					type: 'string',
-				},
-			],
-		},
 	],
 };
 
