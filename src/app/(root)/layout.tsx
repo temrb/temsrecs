@@ -6,6 +6,7 @@ import { Poppins } from 'next/font/google';
 import Ga4 from '@/utils/ga4.component';
 import Script from 'next/script';
 import Header from '@/components/header';
+import { Analytics } from '@vercel/analytics/react';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 					<section className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
 						{children}
 					</section>
+					<Analytics />
 				</Ga4>
 			</body>
 		</html>
