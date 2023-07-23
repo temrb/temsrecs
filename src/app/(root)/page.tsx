@@ -19,7 +19,7 @@ const Page = () => {
 				}}
 				className='flex flex-col w-full h-full'
 			>
-				<div className='w-full p-4 justify-center flex flex-col items-center'>
+				<div className='w-full justify-center flex flex-col items-center'>
 					<Search />
 					<Products />
 				</div>

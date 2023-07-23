@@ -12,20 +12,20 @@ const Header = () => {
 	return (
 		<header
 			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark 
-						h-44 sticky top-0 z-20'
+			bg-bgAccentLight dark:bg-bgAccentDark h-44 sticky top-0 z-20 flex px-6'
 		>
-			<div className='flex bg-bgAccentLight dark:bg-bgAccentDark z-20 flex-col w-full h-full justify-center items-center space-y-4'>
-				<h1 className='text-3xl font-bold'>tem&apos;s recs</h1>
-				<div className='gap-4 flex'>
+			<div className='flex flex-col w-full h-full justify-center items-center space-y-4'>
+				<h1 className='md:text-3xl text-xl font-bold'>🚀 tem&apos;s recs</h1>
+				<div className='space-x-4 flex'>
 					<button
 						className={`select-button
 						${pathname === '/' && 'select-button-active'}
 					`}
 						onClick={() => router.push('/')}
 					>
-						<span className='gap-2 flex items-center'>
-							<Store className='h-6 w-6' />
-							Store
+						<span className='gap-2 flex items-center md:text-xl text-sm'>
+							<Store className='md:h-5 h-4 md:w-5 w-4' />
+							Collection
 						</span>
 					</button>
 					<button
@@ -34,8 +34,8 @@ const Header = () => {
 					`}
 						onClick={() => router.push('/blog')}
 					>
-						<span className='gap-2 flex items-center'>
-							<BookOpen className='h-6 w-6' />
+						<span className='gap-2 flex items-center md:text-xl text-sm'>
+							<BookOpen className='md:h-5 h-4 md:w-5 w-4' />
 							Blog
 						</span>
 					</button>

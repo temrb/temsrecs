@@ -7,7 +7,6 @@ import {
 	X,
 	GraduationCap,
 	Rocket,
-	Shirt,
 	Lamp,
 	Headphones,
 } from 'lucide-react';
@@ -15,7 +14,7 @@ import {
 import { useWindowSize } from 'usehooks-ts';
 
 const Search = () => {
-	type Category = 'Tech' | 'Essentials' | 'Home' | 'Learn';
+	type Category = 'Tech' | 'Essentials' | 'Home' | 'Career';
 	const { width, height } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null
@@ -41,7 +40,7 @@ const Search = () => {
 	};
 
 	return (
-		<form className='md:w-3/5 space-y-4 pt-8 sm:w-5/6 w-full flex flex-col items-center justify-center'>
+		<form className='md:w-3/5 space-y-4 p-4 pt-8 sm:w-5/6 w-full flex flex-col items-center justify-center'>
 			<div className='w-full flex items-center space-x-2'>
 				{hideMenu && (
 					<button
@@ -115,10 +114,10 @@ const Search = () => {
 					</button>
 					<button
 						className={`select-button text-xs items-center flex space-x-2
-						${selectedCategory === 'Learn' && 'select-button-active'}
+						${selectedCategory === 'Career' && 'select-button-active'}
 					`}
 						onClick={() => {
-							handleCategoryClick('Learn');
+							handleCategoryClick('Career');
 							if (width && width < 800) {
 								menuOpen && setMenuOpen(false);
 							}
@@ -126,7 +125,7 @@ const Search = () => {
 						type='button'
 					>
 						<GraduationCap className='h-4' />
-						Learn
+						Career
 					</button>
 				</div>
 			)}
