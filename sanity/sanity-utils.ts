@@ -5,18 +5,23 @@ import { client } from './lib/client';
 import { Product } from '../types/Product';
 import { Blog } from '../types/Blog';
 
-//TODO
-export async function getProducts(): Promise<Product[]> {
+// TODO
+export async function getFirstPageProducts(): Promise<Product[]> {
 	return client.fetch(
-		groq`*[_type == "project"]{
+		groq`*[_type == "product"] | order(_createdAt) [0...20] {
       _id,
       _createdAt,
       name,
-      "slug": slug.current,
-      "image": image.asset->url,
-      url,
-      content
-    }`
+      tags,
+      imageLink,
+      productLink,
+    }`,
+		{
+			// cache for 300 seconds or 5 minutes
+			next: {
+				revalidate: 300,
+			},
+		}
 	);
 }
 

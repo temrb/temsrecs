@@ -14,6 +14,7 @@ import {
 	PlaneTakeoff,
 	Coins,
 	Dumbbell,
+	Brain,
 } from 'lucide-react';
 
 import { useWindowSize } from 'usehooks-ts';
@@ -26,7 +27,7 @@ type Category =
 	| 'Finance'
 	| 'Travel'
 	| 'Fitness'
-	| 'Food'
+	| 'Tutorials'
 	| 'Other';
 
 const Search = () => {
@@ -39,7 +40,7 @@ const Search = () => {
 		{ id: 6, name: 'Finance', icon: <Coins className='h-4' /> },
 		{ id: 7, name: 'Travel', icon: <PlaneTakeoff className='h-4' /> },
 		{ id: 8, name: 'Fitness', icon: <Dumbbell className='h-4' /> },
-		{ id: 9, name: 'Food', icon: <Pizza className='h-4' /> },
+		{ id: 9, name: 'Tutorials', icon: <Brain className='h-4' /> },
 		{ id: 10, name: 'Other', icon: <CircleEllipsis className='h-4' /> },
 	];
 	const { width } = useWindowSize();

@@ -8,6 +8,7 @@ interface Props {
 	image: string;
 	imageAlt: string;
 	productLink: string;
+	tags: string[];
 }
 
 const ProductItem = (props: Props) => {
@@ -20,10 +21,10 @@ const ProductItem = (props: Props) => {
 	};
 
 	return (
-		<div className='group flex flex-col'>
+		<div className='group flex flex-col dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'>
 			{/* image */}
 			<div
-				className='relative w-full h-44 dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'
+				className='relative w-full h-44'
 				onMouseLeave={() => {
 					setCopied(false);
 				}}
@@ -83,6 +84,23 @@ const ProductItem = (props: Props) => {
 							)}
 						</button>
 					</div>
+				</div>
+			</div>
+			<div className='p-2'>
+				<div
+					className='space-x-4 p-1 overflow-x-auto flex flex-row border-t-4 
+				dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2'
+				>
+					{props.tags.map((tag: string) => (
+						<div
+							// using sanity tag as key
+							key={tag}
+							className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
+							p-1 rounded-lg shadow-lg text-sm items-center justify-center capitalize'
+						>
+							{tag}
+						</div>
+					))}
 				</div>
 			</div>
 		</div>
