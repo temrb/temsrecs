@@ -43,7 +43,7 @@ const ProductItem = (props: Props) => {
 					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 				/>
 				<p
-					className='absolute top-0 left-0 w-full p-1 items-start justify-start lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
+					className='absolute top-0 left-0 w-full p-2 items-start justify-start lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
 					text-sm font-light ease-in-out duration-200 dark:bg-bgAccentDark bg-bgAccentLight shadow-md rounded-t-xl text-ellipsis overflow-hidden ... truncate
 					dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2 border-b-4'
 				>

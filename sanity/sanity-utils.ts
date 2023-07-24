@@ -25,11 +25,11 @@ export const getFirstPageProducts = async (): Promise<Product[]> => {
 	);
 };
 
-export const getProductByCategory = async (
+export const getProductsByCategory = async (
 	category: string
 ): Promise<Product[]> => {
 	return await client.fetch(
-		groq`*[_type == "product" && ${category} in tags] | order(_createdAt) [0...25] {
+		groq`*[_type == "product" && $keyword in tags] | order(_createdAt) [0...25] {
       _id,
       _createdAt,
       name,
@@ -38,11 +38,43 @@ export const getProductByCategory = async (
       productLink,
     }`,
 		{
-			// revalidate every 300 seconds or 5 minutes
-			next: {
-				revalidate: 300,
-			},
-			cache: 'force-cache',
+			keyword: category,
+		}
+	);
+};
+
+export const getProductsByName = async (name: string): Promise<Product[]> => {
+	return await client.fetch(
+		groq`*[_type == "product" && (name match ($keyword + "*") || tags[] match ($keyword + "*"))] | order(_createdAt) [0...25] {
+			_id,
+			_createdAt,
+			name,
+			tags,
+			imageLink,
+			productLink,
+		}`,
+		{
+			keyword: name,
+		}
+	);
+};
+
+export const getProductsByNameAndCat = async (
+	name: string,
+	category: string
+): Promise<Product[]> => {
+	return await client.fetch(
+		groq`*[_type == "product" && (name match ($keyword + "*") || tags[] match ($keyword + "*")) && $category in tags] | order(_createdAt) [0...25] {
+			_id,
+			_createdAt,
+			name,
+			tags,
+			imageLink,
+			productLink,
+		}`,
+		{
+			keyword: name,
+			category: category,
 		}
 	);
 };

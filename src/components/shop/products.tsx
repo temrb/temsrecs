@@ -1,27 +1,64 @@
 /** @format */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import ProductItem from './product-item';
-import { getFirstPageProducts } from '../../../sanity/sanity-utils';
+import {
+	getProductsByCategory,
+	getFirstPageProducts,
+	getProductsByName,
+	getProductsByNameAndCat,
+} from '../../../sanity/sanity-utils';
 import useSWR from 'swr';
 import LoadingSpinner from '@/utils/loading-spinner.component';
 import { ArrowDownNarrowWide } from 'lucide-react';
+import { searchSlice } from '@/zustand/features/searchSlice';
 
 const Products = () => {
+	const categoryType = searchSlice((state) => state.categoryType);
+
+	const searchTerm = searchSlice((state) => state.searchTerm);
+
+	const fetcher = (url: string) => {
+		if (url.startsWith('category-') && searchTerm) {
+			const category = url.replace('category-', '');
+			return getProductsByNameAndCat(searchTerm, category);
+		} else if (url.startsWith('category-')) {
+			const category = url.replace('category-', '');
+			return getProductsByCategory(category);
+		} else if (url.startsWith('name-')) {
+			const name = url.replace('name-', '');
+			return getProductsByName(name);
+		} else {
+			return getFirstPageProducts();
+		}
+	};
+
 	const {
 		data: products,
 		error,
-		isLoading,
-	} = useSWR('first-page-products', getFirstPageProducts);
+		isValidating: isLoading,
+	} = useSWR(
+		categoryType && searchTerm
+			? `category-${categoryType}`
+			: categoryType
+			? `category-${categoryType}`
+			: searchTerm
+			? `name-${searchTerm}`
+			: 'first-page-products',
+		fetcher,
+		{ revalidateOnFocus: false }
+	);
 
 	if (error) return <div className='text-red-600'>Failed to load</div>;
-	if (!products || isLoading) return <LoadingSpinner size='h-10 w-10' />;
+	if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
+
+	// if (!products) return <div className='text-gray-600'>Failed to load</div>;
 
 	return (
 		<div className='w-full h-full'>
 			{/* products */}
 			<div className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 pb-10'>
-				{products.map((product) => (
+				{products?.map((product) => (
 					<ProductItem
 						key={product._id}
 						image={product.imageLink}
