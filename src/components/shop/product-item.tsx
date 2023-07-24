@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ArrowUpRight, Share2, ClipboardCheck } from 'lucide-react';
 
 interface Props {
+	name: string;
 	image: string;
 	imageAlt: string;
 	productLink: string;
@@ -22,7 +23,6 @@ const ProductItem = (props: Props) => {
 
 	return (
 		<div className='group flex flex-col dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'>
-			{/* image */}
 			<div
 				className='relative w-full h-44'
 				onMouseLeave={() => {
@@ -42,6 +42,13 @@ const ProductItem = (props: Props) => {
 					} transition-all ease-in-out duration-200 p-2`}
 					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 				/>
+				<p
+					className='absolute top-0 left-0 w-full p-1 items-start justify-start lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
+					text-sm font-light ease-in-out duration-200 dark:bg-bgAccentDark bg-bgAccentLight shadow-md rounded-t-xl text-ellipsis overflow-hidden ... truncate
+					dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2 border-b-4'
+				>
+					{props.name}
+				</p>
 				<div
 					className='absolute top-0 left-0 w-full h-full flex p-2 items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
                         ease-in-out duration-200'
@@ -86,22 +93,20 @@ const ProductItem = (props: Props) => {
 					</div>
 				</div>
 			</div>
-			<div className='p-2'>
-				<div
-					className='space-x-4 p-1 overflow-x-auto flex flex-row border-t-4 
+			<div
+				className='space-x-4 p-2 overflow-x-auto flex flex-row border-t-4 
 				dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2'
-				>
-					{props.tags.map((tag: string) => (
-						<div
-							// using sanity tag as key
-							key={tag}
-							className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
-							p-1 rounded-lg shadow-lg text-sm items-center justify-center capitalize'
-						>
-							{tag}
-						</div>
-					))}
-				</div>
+			>
+				{props.tags.map((tag: string) => (
+					<div
+						// using sanity tag as key
+						key={tag}
+						className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
+							p-1 rounded-lg shadow-sm text-sm items-center justify-center capitalize'
+					>
+						{tag}
+					</div>
+				))}
 			</div>
 		</div>
 	);

@@ -73,7 +73,8 @@ const Header = () => {
 							className={`select-button
 						${pathname === '/blog' && 'select-button-active'}
 					`}
-							onClick={() => router.push('/blog')}
+							// onClick={() => router.push('/blog')}
+							onClick={() => alert('Coming soon!')}
 						>
 							<span className='gap-2 flex items-center md:text-md text-sm'>
 								<BookOpen className='h-4 w-4' />

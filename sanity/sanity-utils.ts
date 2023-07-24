@@ -5,10 +5,9 @@ import { client } from './lib/client';
 import { Product } from '../types/Product';
 import { Blog } from '../types/Blog';
 
-// TODO
-export async function getFirstPageProducts(): Promise<Product[]> {
-	return client.fetch(
-		groq`*[_type == "product"] | order(_createdAt) [0...20] {
+export const getFirstPageProducts = async (): Promise<Product[]> => {
+	return await client.fetch(
+		groq`*[_type == "product"] | order(_createdAt) [0...25] {
       _id,
       _createdAt,
       name,
@@ -17,13 +16,36 @@ export async function getFirstPageProducts(): Promise<Product[]> {
       productLink,
     }`,
 		{
-			// cache for 300 seconds or 5 minutes
+			// revalidate every 300 seconds or 5 minutes
 			next: {
 				revalidate: 300,
 			},
+			cache: 'force-cache',
 		}
 	);
-}
+};
+
+export const getProductByCategory = async (
+	category: string
+): Promise<Product[]> => {
+	return await client.fetch(
+		groq`*[_type == "product" && ${category} in tags] | order(_createdAt) [0...25] {
+      _id,
+      _createdAt,
+      name,
+      tags,
+      imageLink,
+      productLink,
+    }`,
+		{
+			// revalidate every 300 seconds or 5 minutes
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
+		}
+	);
+};
 
 export async function getPage(): Promise<Blog[]> {
 	return client.fetch(

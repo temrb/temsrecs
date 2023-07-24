@@ -10,7 +10,6 @@ import {
 	Lamp,
 	Headphones,
 	CircleEllipsis,
-	Pizza,
 	PlaneTakeoff,
 	Coins,
 	Dumbbell,
@@ -29,6 +28,9 @@ type Category =
 	| 'Fitness'
 	| 'Tutorials'
 	| 'Other';
+
+import { useSWRConfig } from 'swr';
+import { getProductByCategory } from '../../../sanity/sanity-utils';
 
 const Search = () => {
 	const categories: { id: number; name: Category; icon: ReactNode }[] = [
@@ -50,6 +52,8 @@ const Search = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [hideMenu, setHideMenu] = useState(false);
 
+	const { mutate } = useSWRConfig();
+
 	useEffect(() => {
 		if (width) {
 			if (width >= 1024) {
@@ -65,6 +69,7 @@ const Search = () => {
 
 	const handleCategoryClick = (category: Category) => {
 		setSelectedCategory(category);
+		mutate('product-category', getProductByCategory(category));
 	};
 
 	const CategoryButton = ({
@@ -78,12 +83,7 @@ const Search = () => {
 			className={`select-button text-xs items-center flex space-x-2 ${
 				selectedCategory === category && 'select-button-active'
 			}`}
-			onClick={() => {
-				handleCategoryClick(category);
-				if (width < 1024) {
-					setMenuOpen(false);
-				}
-			}}
+			onClick={() => handleCategoryClick(category)}
 			type='button'
 		>
 			{icon}

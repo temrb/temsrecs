@@ -3,9 +3,19 @@
 import React from 'react';
 import ProductItem from './product-item';
 import { getFirstPageProducts } from '../../../sanity/sanity-utils';
+import useSWR from 'swr';
+import LoadingSpinner from '@/utils/loading-spinner.component';
+import { ArrowDownNarrowWide } from 'lucide-react';
 
-const Products = async () => {
-	const products = await getFirstPageProducts();
+const Products = () => {
+	const {
+		data: products,
+		error,
+		isLoading,
+	} = useSWR('first-page-products', getFirstPageProducts);
+
+	if (error) return <div className='text-red-600'>Failed to load</div>;
+	if (!products || isLoading) return <LoadingSpinner size='h-10 w-10' />;
 
 	return (
 		<div className='w-full h-full'>
@@ -18,19 +28,22 @@ const Products = async () => {
 						imageAlt={product.name + ' image alt'}
 						productLink={product.productLink}
 						tags={product.tags}
+						name={product.name}
 					/>
 				))}
 			</div>
 
-			{/* pagination */}
-			<div className='flex justify-center items-center space-x-4 w-full py-6 bottom-0 dark:bg-bgAccentDark bg-bgAccentLight border-t-2 dark:border-bgAccentLight border-bgAccentDark'>
-				<button className='primary-button' onClick={() => console.log('back')}>
-					{'< Back'}
-				</button>
-				<button className='primary-button' onClick={() => console.log('next')}>
-					{'Next >'}
-				</button>
-			</div>
+			{products && products.length > 24 && (
+				<div className='flex justify-center items-center w-full py-6 bottom-0 dark:bg-bgAccentDark bg-bgAccentLight'>
+					<button
+						className='primary-button flex items-center space-x-2'
+						onClick={() => console.log('back')}
+					>
+						<ArrowDownNarrowWide className='h-6 w-6' />
+						<span>More</span>
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };
