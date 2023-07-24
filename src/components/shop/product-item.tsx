@@ -2,70 +2,77 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ShoppingBasket, Share2, ClipboardCheck } from 'lucide-react';
-import TikTokLogo from '../../../public/logos/tiktok.logo';
-import InstaLogo from '../../../public/logos/insta.logo';
-import ThreadsLogo from '../../../public/logos/threads.logo';
-import Link from 'next/link';
+import { ArrowUpRight, Share2, ClipboardCheck } from 'lucide-react';
 
 interface Props {
+	name: string;
 	image: string;
 	imageAlt: string;
 	productLink: string;
-	socials: {
-		tiktok: string;
-		insta: string;
-		threads: string;
-	};
+	tags: string[];
 }
 
 const ProductItem = (props: Props) => {
 	const [copied, setCopied] = useState(false);
-	const [showText, setShowText] = useState(false);
+	const [blur, setBlur] = useState(false);
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(props.productLink);
 		setCopied(true);
-		setShowText(true);
-		setTimeout(() => {
-			setShowText(false);
-		}, 2000); // hide the text after 2 seconds
 	};
 
 	return (
-		<div
-			className='w-full h-44 group space-y-2'
-			onMouseLeave={() => {
-				setCopied(false);
-			}}
-		>
-			{/* image */}
-			<div className='w-full h-full relative'>
+		<div className='group flex flex-col dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'>
+			<div
+				className='relative w-full h-44'
+				onMouseLeave={() => {
+					setCopied(false);
+				}}
+			>
 				<Image
 					src={props.image}
-					layout='fill'
-					objectFit='cover'
+					fill
+					loading='lazy'
+					placeholder='blur'
+					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhQJ/6tZ9OQAAAABJRU5ErkJggg=='
+					style={{ objectFit: 'contain' }}
 					alt={props.imageAlt}
+					className={`${
+						blur && 'blur-sm'
+					} transition-all ease-in-out duration-200 p-2`}
+					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 				/>
+				<p
+					className='absolute top-0 left-0 w-full p-2 items-start justify-start lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
+					text-sm font-light ease-in-out duration-200 dark:bg-bgAccentDark bg-bgAccentLight shadow-md rounded-t-xl text-ellipsis overflow-hidden ... truncate
+					dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2 border-b-4'
+				>
+					{props.name}
+				</p>
 				<div
-					className='absolute top-0 left-0 w-full h-full flex items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
-                        ease-in-out duration-300'
+					className='absolute top-0 left-0 w-full h-full flex p-2 items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity
+                        ease-in-out duration-200'
 				>
 					<button
 						className='shop-button'
 						onClick={() => {
 							window.open(props.productLink, '_blank');
 						}}
+						onMouseEnter={() => {
+							setBlur(true);
+						}}
+						onMouseLeave={() => {
+							setBlur(false);
+						}}
 					>
-						<div className='flex items-center space-x-2'>
-							<ShoppingBasket className='h-7' />
-							<span className='text-2xl'>Buy This</span>
+						<div className='flex items-center space-x-1'>
+							<ArrowUpRight className='lg:h-6 h-5' />
+							<span className='lg:text-xl text-md'>Go to item</span>
 						</div>
 					</button>
 				</div>
 				<div className='absolute bottom-0 right-0 m-2'>
 					<div className='flex items-center space-x-2'>
-						{showText && <span className='text-xs font-semibold'>Copied!</span>}
 						<button
 							className={`share-button ${
 								copied && 'bg-green-600 hover:bg-green-700'
@@ -73,7 +80,12 @@ const ProductItem = (props: Props) => {
 							onClick={handleCopy}
 						>
 							{copied ? (
-								<ClipboardCheck className='h-4' />
+								<div className='flex space-x-1 items-center'>
+									<span className='text-xs font-semibold rounded-md'>
+										Copied!
+									</span>
+									<ClipboardCheck className='h-4' />
+								</div>
 							) : (
 								<Share2 className='h-4' />
 							)}
@@ -81,33 +93,20 @@ const ProductItem = (props: Props) => {
 					</div>
 				</div>
 			</div>
-
-			{/* socials */}
-			<div className='flex justify-evenly'>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socials.tiktok, '_blank');
-					}}
-				>
-					<TikTokLogo width={30} height={30} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socials.insta, '_blank');
-					}}
-				>
-					<InstaLogo width={30} height={30} />
-				</button>
-				<button
-					className='social-button'
-					onClick={() => {
-						window.open(props.socials.threads, '_blank');
-					}}
-				>
-					<ThreadsLogo width={30} height={30} />
-				</button>
+			<div
+				className='space-x-4 p-2 overflow-x-auto flex flex-row border-t-4 
+				dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2'
+			>
+				{props.tags.map((tag: string) => (
+					<div
+						// using sanity tag as key
+						key={tag}
+						className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
+							p-1 rounded-lg shadow-sm text-sm items-center justify-center capitalize'
+					>
+						{tag}
+					</div>
+				))}
 			</div>
 		</div>
 	);

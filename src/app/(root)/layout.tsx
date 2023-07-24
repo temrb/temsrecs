@@ -1,10 +1,12 @@
 /** @format */
-import React from 'react';
-import '../styles/globals.css';
+
+import React, { ReactNode } from 'react';
+import '../../styles/globals.css';
 import { Poppins } from 'next/font/google';
 import Ga4 from '@/utils/ga4.component';
 import Script from 'next/script';
 import Header from '@/components/header';
+import { Analytics } from '@vercel/analytics/react';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -20,11 +22,7 @@ export const metadata = {
 	},
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang='en'>
 			<head>
@@ -38,12 +36,15 @@ export default function RootLayout({
           `}
 				</Script>
 			</head>
-			<body className={poppins.className}>
+			<body
+				className={`${poppins.className} dark:bg-bgAccentDark bg-bgAccentLight text-bgAccentDark dark:text-bgAccentLight`}
+			>
 				<Ga4>
 					<Header />
-					<div className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
+					<section className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
 						{children}
-					</div>
+					</section>
+					<Analytics />
 				</Ga4>
 			</body>
 		</html>
