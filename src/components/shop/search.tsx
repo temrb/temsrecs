@@ -60,10 +60,7 @@ const Search = () => {
 
 	const setCategoryType = searchSlice((state) => state.setCategoryType);
 	const [localSearchTerm, setLocalSearchTerm] = useState('');
-	console.log(
-		'🚀 ~ file: search.tsx:63 ~ Search ~ localSearchTerm:',
-		localSearchTerm.length
-	);
+
 	const setSearchTerm = searchSlice((state) => state.setSearchTerm);
 
 	useEffect(() => {

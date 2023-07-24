@@ -74,7 +74,7 @@ const Products = () => {
 				<div className='flex justify-center items-center w-full py-6 bottom-0 dark:bg-bgAccentDark bg-bgAccentLight'>
 					<button
 						className='primary-button flex items-center space-x-2'
-						onClick={() => console.log('back')}
+						onClick={() => console.log('More')}
 					>
 						<ArrowDownNarrowWide className='h-6 w-6' />
 						<span>More</span>
