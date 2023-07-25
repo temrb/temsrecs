@@ -25,7 +25,6 @@ const pageReducer = (state = 0, action: any) => {
 
 const Products = () => {
 	const [page, dispatch] = useReducer(pageReducer, 0);
-	console.log('🚀 ~ file: products.tsx:28 ~ Products ~ page:', page);
 
 	const categoryType = searchSlice((state) => state.categoryType);
 	const searchTerm = searchSlice((state) => state.searchTerm);
