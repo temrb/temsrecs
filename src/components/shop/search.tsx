@@ -106,7 +106,7 @@ const Search = () => {
 				<input
 					className='w-full primary-input flex'
 					type='text'
-					placeholder='Search 🔍'
+					placeholder='🔍 Search'
 					onChange={(event) => debouncedSetSearchTerm(event.target.value)}
 					required
 				/>

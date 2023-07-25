@@ -11,6 +11,9 @@ import {
 import useSWR from 'swr';
 import LoadingSpinner from '@/utils/loading-spinner.component';
 import { searchSlice } from '@/zustand/features/searchSlice';
+import { BadgeInfo } from 'lucide-react';
+import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const pageReducer = (state = 0, action: any) => {
 	switch (action.type) {
@@ -72,45 +75,67 @@ const Products = () => {
 	return (
 		<div className='w-full h-full'>
 			{/* products */}
-			<div className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 pb-10'>
-				{products?.map((product) => (
-					<ProductItem
-						key={product._id}
-						image={product.imageLink}
-						imageAlt={product.name + ' image alt'}
-						productLink={product.productLink}
-						tags={product.tags}
-						name={product.name}
-					/>
-				))}
-			</div>
+
+			<AnimatePresence>
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -30 }}
+					transition={{
+						duration: 0.6,
+						ease: [0.165, 0.84, 0.44, 1],
+					}}
+					className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 pb-20'
+				>
+					{products?.map((product) => (
+						<ProductItem
+							key={product._id}
+							image={product.imageLink}
+							imageAlt={product.name + ' image alt'}
+							productLink={product.productLink}
+							tags={product.tags}
+							name={product.name}
+						/>
+					))}
+				</motion.div>
+			</AnimatePresence>
 
 			{/* pagination */}
-			<div className='flex flex-col justify-center items-center space-y-3 dark:bg-bgAccentDark bg-bgAccentLight'>
-				{products && products?.length >= 1 ? (
-					<span className='text-sm'>
-						Showing {products.length} of {products.length} results
-					</span>
-				) : (
-					<span className='text-sm'>No results</span>
-				)}
-				<div className='space-x-4 flex'>
+			<div
+				className='flex fixed bottom-0 z-40 w-full
+				h-16 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-around px-4 border-t-2 
+				border-bgAccentDark dark:border-bgAccentLight'
+			>
+				<div className='flex h-full w-full justify-start items-center'>
+					<Link
+						className=' justify-start items-center flex text-xs primary-button'
+						href='/policies'
+					>
+						<BadgeInfo size={20} />
+					</Link>
+				</div>
+				<div className='flex h-full w-full justify-center items-center'>
 					{page > 0 && (
 						<button
 							className='primary-button flex items-center space-x-2'
 							onClick={() => dispatch({ type: 'PREV_PAGE' })}
 						>
-							<span className='text-sm'>Back</span>
+							<span className='text-sm'>{'< Back'}</span>
 						</button>
 					)}
-					{products && products?.length >= 24 && (
+					{products && products?.length >= 1 && (
 						<button
-							className='primary-button flex items-center space-x-2'
+							className='primary-button text-xs'
 							onClick={() => dispatch({ type: 'NEXT_PAGE' })}
 						>
-							<span className='text-sm'>Next</span>
+							<span className='text-sm'>{'Next >'}</span>
 						</button>
 					)}
+				</div>
+				<div className='w-full h-full justify-end items-center flex text-xs'>
+					{products && products?.length >= 1
+						? `${products.length} of ${products.length}`
+						: 'No results'}
 				</div>
 			</div>
 		</div>
