@@ -19,15 +19,20 @@ const Products = () => {
 	const searchTerm = searchSlice((state) => state.searchTerm);
 
 	const fetcher = (url: string) => {
+		// Only fetch using getProductsByNameAndCat when both searchTerm and categoryType are not null
 		if (searchTerm && categoryType) {
 			return getProductsByNameAndCat(searchTerm, categoryType);
-		} else if (url.startsWith('category-')) {
-			const category = url.replace('category-', '');
-			return getProductsByCategory(category);
-		} else if (url.startsWith('name-')) {
-			const name = url.replace('name-', '');
-			return getProductsByName(name);
-		} else {
+		}
+		// If categoryType is not null but searchTerm is null, fetch using getProductsByCategory
+		else if (categoryType) {
+			return getProductsByCategory(categoryType);
+		}
+		// If searchTerm is not null but categoryType is null, fetch using getProductsByName
+		else if (searchTerm) {
+			return getProductsByName(searchTerm);
+		}
+		// If both searchTerm and categoryType are null, fetch the first page products
+		else {
 			return getFirstPageProducts();
 		}
 	};
@@ -51,7 +56,7 @@ const Products = () => {
 	if (error) return <div className='text-red-600'>Failed to load</div>;
 	// if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
 
-	if (!products) return <div className='text-gray-600'>Failed to load</div>;
+	// if (!products) return <div className='text-gray-600'>No Products</div>;
 
 	return (
 		<div className='w-full h-full'>

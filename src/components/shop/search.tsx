@@ -91,18 +91,12 @@ const Search = () => {
 
 		setIsFetching(true);
 
-		if (selectedCategory && localSearchTerm.length > 3) {
-			mutate(
-				`name-and-category-${localSearchTerm}-${selectedCategory}`,
-				getProductsByNameAndCat(localSearchTerm, selectedCategory)
-			).then(() => setIsFetching(false));
-		} else {
-			setSearchTerm(localSearchTerm);
-			mutate(
-				`name-${localSearchTerm}`,
-				getProductsByName(localSearchTerm || ' ')
-			).then(() => setIsFetching(false));
-		}
+		// Removed the condition for selectedCategory
+		setSearchTerm(localSearchTerm);
+		mutate(
+			`name-${localSearchTerm}`,
+			getProductsByName(localSearchTerm || ' ')
+		).then(() => setIsFetching(false));
 	};
 
 	const handleCategoryClick = (category: Category) => {
