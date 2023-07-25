@@ -60,7 +60,6 @@ const Search = () => {
 	const setCategoryType = searchSlice((state) => state.setCategoryType);
 	const [localSearchTerm, setLocalSearchTerm] = useState('');
 	const setSearchTerm = searchSlice((state) => state.setSearchTerm);
-	const [isFetching, setIsFetching] = useState(false);
 
 	useEffect(() => {
 		if (width) {
@@ -89,28 +88,19 @@ const Search = () => {
 			return;
 		}
 
-		setIsFetching(true);
-
-		// Removed the condition for selectedCategory
 		setSearchTerm(localSearchTerm);
-		mutate(
-			`name-${localSearchTerm}`,
-			getProductsByName(localSearchTerm || ' ')
-		).then(() => setIsFetching(false));
+		// mutate(
+		// 	`name-${localSearchTerm}`,
+		// 	getProductsByName(localSearchTerm || ' ')
+		// ).then(() => setIsFetching(false));
 	};
 
 	const handleCategoryClick = (category: Category) => {
-		if (isFetching) {
-			return;
-		}
-
-		setIsFetching(true);
-
 		setSelectedCategory(category);
 		setCategoryType(category);
-		mutate(category, getProductsByCategory(category)).then(() =>
-			setIsFetching(false)
-		);
+		// mutate(category, getProductsByCategory(category)).then(() =>
+		// 	setIsFetching(false)
+		// );
 	};
 
 	const CategoryButton = ({
