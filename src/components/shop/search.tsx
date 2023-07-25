@@ -33,6 +33,7 @@ import { useSWRConfig } from 'swr';
 import {
 	getProductsByCategory,
 	getProductsByName,
+	getProductsByNameAndCat,
 } from '../../../sanity/sanity-utils';
 import { searchSlice } from '@/zustand/features/searchSlice';
 
@@ -55,13 +56,11 @@ const Search = () => {
 	);
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [hideMenu, setHideMenu] = useState(false);
-
 	const { mutate } = useSWRConfig();
-
 	const setCategoryType = searchSlice((state) => state.setCategoryType);
 	const [localSearchTerm, setLocalSearchTerm] = useState('');
-
 	const setSearchTerm = searchSlice((state) => state.setSearchTerm);
+	const [isFetching, setIsFetching] = useState(false);
 
 	useEffect(() => {
 		if (width) {
@@ -82,12 +81,42 @@ const Search = () => {
 		}
 	}, [localSearchTerm, setSearchTerm]);
 
+	const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault(); // prevent form submission and page refresh
+
+		if (localSearchTerm.length < 3) {
+			alert('Please enter at least 3 characters for the search term');
+			return;
+		}
+
+		setIsFetching(true);
+
+		if (selectedCategory && localSearchTerm.length > 3) {
+			mutate(
+				`name-and-category-${localSearchTerm}-${selectedCategory}`,
+				getProductsByNameAndCat(localSearchTerm, selectedCategory)
+			).then(() => setIsFetching(false));
+		} else {
+			setSearchTerm(localSearchTerm);
+			mutate(
+				`name-${localSearchTerm}`,
+				getProductsByName(localSearchTerm || ' ')
+			).then(() => setIsFetching(false));
+		}
+	};
+
 	const handleCategoryClick = (category: Category) => {
+		if (isFetching) {
+			return;
+		}
+
+		setIsFetching(true);
+
 		setSelectedCategory(category);
-
 		setCategoryType(category);
-
-		mutate(category, getProductsByCategory(category));
+		mutate(category, getProductsByCategory(category)).then(() =>
+			setIsFetching(false)
+		);
 	};
 
 	const CategoryButton = ({
@@ -109,21 +138,6 @@ const Search = () => {
 		</button>
 	);
 
-	const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault(); // prevent form submission and page refresh
-
-		if (localSearchTerm.length < 3) {
-			alert('Please enter at least 3 characters for the search term');
-			return;
-		}
-
-		setSearchTerm(localSearchTerm);
-		mutate(
-			`name-${localSearchTerm}`,
-			getProductsByName(localSearchTerm || ' ')
-		);
-	};
-
 	return (
 		<div className='lg:w-3/5 md:w-5/6 space-y-4 p-4 pt-8 w-full flex flex-col items-center justify-center'>
 			<form
@@ -140,9 +154,18 @@ const Search = () => {
 					</button>
 				)}
 				<input
-					className='w-full primary-input flex'
+					className={`w-full primary-input flex
+					${
+						localSearchTerm.length < 3 &&
+						localSearchTerm.length > 0 &&
+						'ring-2 ring-orange-600'
+					}`}
 					type='text'
-					placeholder='Search'
+					placeholder={`${
+						localSearchTerm.length > 3
+							? 'Search'
+							: 'Enter at least 3 characters'
+					}`}
 					onChange={(event) => setLocalSearchTerm(event.target.value)}
 					required
 				/>

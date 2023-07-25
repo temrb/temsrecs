@@ -19,9 +19,8 @@ const Products = () => {
 	const searchTerm = searchSlice((state) => state.searchTerm);
 
 	const fetcher = (url: string) => {
-		if (url.startsWith('category-') && searchTerm) {
-			const category = url.replace('category-', '');
-			return getProductsByNameAndCat(searchTerm, category);
+		if (searchTerm && categoryType) {
+			return getProductsByNameAndCat(searchTerm, categoryType);
 		} else if (url.startsWith('category-')) {
 			const category = url.replace('category-', '');
 			return getProductsByCategory(category);
@@ -38,8 +37,8 @@ const Products = () => {
 		error,
 		isValidating: isLoading,
 	} = useSWR(
-		categoryType && searchTerm
-			? `category-${categoryType}`
+		searchTerm && categoryType
+			? `name-and-category-${searchTerm}-${categoryType}`
 			: categoryType
 			? `category-${categoryType}`
 			: searchTerm
@@ -50,9 +49,9 @@ const Products = () => {
 	);
 
 	if (error) return <div className='text-red-600'>Failed to load</div>;
-	if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
+	// if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
 
-	// if (!products) return <div className='text-gray-600'>Failed to load</div>;
+	if (!products) return <div className='text-gray-600'>Failed to load</div>;
 
 	return (
 		<div className='w-full h-full'>
