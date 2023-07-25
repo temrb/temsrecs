@@ -16,17 +16,17 @@ const Header = () => {
 	const socialItems: SocialMedia[] = [
 		{ id: 1, type: 'tiktok', link: 'https://www.tiktok.com/@tem.tk' },
 		{ id: 2, type: 'tiktok', link: 'https://www.tiktok.com/@tem.toks' },
-		{ id: 3, type: 'insta', link: 'https://www.instagram.com/' },
-		{ id: 4, type: 'twitter', link: 'https://twitter.com/' },
-		{ id: 5, type: 'youtube', link: 'https://www.youtube.com/' },
-		{ id: 6, type: 'threads', link: 'https://threads.net/' },
-		{ id: 7, type: 'medium', link: 'https://medium.com/' },
+		// { id: 3, type: 'insta', link: 'https://www.instagram.com/' },
+		// { id: 4, type: 'twitter', link: 'https://twitter.com/' },
+		// { id: 5, type: 'youtube', link: 'https://www.youtube.com/' },
+		// { id: 6, type: 'threads', link: 'https://threads.net/' },
+		// { id: 7, type: 'medium', link: 'https://medium.com/' },
 		{
 			id: 8,
 			type: 'amazon',
 			link: 'https://www.amazon.com/shop/influencer-4c14be7c?ref_=cm_sw_r_cp_ud_aipsfshop_aipsfinfluencer-4c14be7c_6XM77RBD8PYH8D7TFPBR',
 		},
-		{ id: 9, type: 'facebook', link: 'https://facebook.com/' },
+		// { id: 9, type: 'facebook', link: 'https://facebook.com/' },
 	];
 
 	return (
