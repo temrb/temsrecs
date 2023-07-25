@@ -48,24 +48,13 @@ const Page = () => {
 			<div className='cky-audit-table-element'></div>
 
 			<h5 className='font-bold text-lg'>Manage cookie preferences</h5>
-
-			<button
-				className='px-8 py-2 rounded border border-gray-300 bg-gray-100 text-gray-600 hover:bg-gray-200 focus:outline-none'
-				id='cky-btn-revisit'
-			>
-				Cookie Settings
-			</button>
 			<p>
-				You can change your cookie preferences any time by clicking the above
-				button. This will let you revisit the cookie consent banner and change
-				your preferences or withdraw your consent right away.{' '}
-			</p>
-			<p>
-				In addition to this, different browsers provide different methods to
-				block and delete cookies used by websites. You can change the settings
-				of your browser to block/delete the cookies. Listed below are the links
-				to the support documents on how to manage and delete cookies from the
-				major web browsers.
+				You can manage your cookie preferences at any time by leveraging browser
+				functionalities. Different browsers offer various methods to block and
+				delete cookies utilized by websites. By modifying your browser settings,
+				you can block or delete cookies. Below are the links to support
+				documents that guide you on how to manage and delete cookies from major
+				web browsers.
 			</p>
 			<p>
 				<a
