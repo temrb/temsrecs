@@ -58,7 +58,7 @@ const Search = () => {
 	const [hideMenu, setHideMenu] = useState(false);
 	const { mutate } = useSWRConfig();
 	const setCategoryType = searchSlice((state) => state.setCategoryType);
-	const [localSearchTerm, setLocalSearchTerm] = useState('');
+	// const [localSearchTerm, setLocalSearchTerm] = useState('');
 	const setSearchTerm = searchSlice((state) => state.setSearchTerm);
 
 	useEffect(() => {
@@ -74,21 +74,21 @@ const Search = () => {
 		}
 	}, [width]);
 
-	useEffect(() => {
-		if (localSearchTerm.length === 0) {
-			setSearchTerm('');
-		}
-	}, [localSearchTerm, setSearchTerm]);
+	// useEffect(() => {
+	// 	if (localSearchTerm.length === 0) {
+	// 		setSearchTerm('');
+	// 	}
+	// }, [localSearchTerm, setSearchTerm]);
 
 	const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault(); // prevent form submission and page refresh
 
-		if (localSearchTerm.length < 3) {
-			alert('Please enter at least 3 characters for the search term');
-			return;
-		}
+		// if (localSearchTerm.length < 3) {
+		// 	alert('Please enter at least 3 characters for the search term');
+		// 	return;
+		// }
 
-		setSearchTerm(localSearchTerm);
+		// setSearchTerm(localSearchTerm);
 		// mutate(
 		// 	`name-${localSearchTerm}`,
 		// 	getProductsByName(localSearchTerm || ' ')
@@ -138,19 +138,10 @@ const Search = () => {
 					</button>
 				)}
 				<input
-					className={`w-full primary-input flex
-					${
-						localSearchTerm.length < 3 &&
-						localSearchTerm.length > 0 &&
-						'ring-2 ring-orange-600'
-					}`}
+					className='w-full primary-input flex'
 					type='text'
-					placeholder={`${
-						localSearchTerm.length > 3
-							? 'Search'
-							: 'Enter at least 3 characters'
-					}`}
-					onChange={(event) => setLocalSearchTerm(event.target.value)}
+					placeholder='Search'
+					onChange={(event) => setSearchTerm(event.target.value)}
 					required
 				/>
 				<button className='primary-button' type='submit'>

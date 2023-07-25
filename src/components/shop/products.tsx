@@ -54,9 +54,9 @@ const Products = () => {
 	);
 
 	if (error) return <div className='text-red-600'>Failed to load</div>;
-	// if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
+	if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
 
-	// if (!products) return <div className='text-gray-600'>No Products</div>;
+	if (!products) return <div className='text-gray-600'>No Products</div>;
 
 	return (
 		<div className='w-full h-full'>
