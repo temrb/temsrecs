@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['m.media-amazon.com'],
+        domains: ['m.media-amazon.com', ['i.ibb.co']],
         remotePatterns: [
             {
                 protocol: "https",
@@ -9,23 +9,6 @@ const nextConfig = {
             },
         ],
     },
-    // async headers() {
-    //     return [
-    //         {
-    //             source: "/(.*)",
-    //             headers: [
-    //                 {
-    //                     key: "Cross-Origin-Embedder-Policy",
-    //                     value: "require-corp",
-    //                 },
-    //                 {
-    //                     key: "Cross-Origin-Opener-Policy",
-    //                     value: "same-origin",
-    //                 },
-    //             ],
-    //         },
-    //     ];
-    // },
 };
 
 module.exports = nextConfig;
