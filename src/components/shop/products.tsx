@@ -1,24 +1,36 @@
 /** @format */
 
-import React, { useCallback } from 'react';
+import React, { useReducer } from 'react';
 import ProductItem from './product-item';
 import {
 	getProductsByCategory,
-	getFirstPageProducts,
 	getProductsByName,
 	getProductsByNameAndCat,
+	getProducts,
 } from '../../../sanity/sanity-utils';
 import useSWR from 'swr';
 import LoadingSpinner from '@/utils/loading-spinner.component';
-import { ArrowDownNarrowWide } from 'lucide-react';
 import { searchSlice } from '@/zustand/features/searchSlice';
 
-const Products = () => {
-	const categoryType = searchSlice((state) => state.categoryType);
+const pageReducer = (state = 0, action: any) => {
+	switch (action.type) {
+		case 'NEXT_PAGE':
+			return state + 1;
+		case 'PREV_PAGE':
+			return state > 0 ? state - 1 : 0;
+		default:
+			throw new Error();
+	}
+};
 
+const Products = () => {
+	const [page, dispatch] = useReducer(pageReducer, 0);
+	console.log('🚀 ~ file: products.tsx:28 ~ Products ~ page:', page);
+
+	const categoryType = searchSlice((state) => state.categoryType);
 	const searchTerm = searchSlice((state) => state.searchTerm);
 
-	const fetcher = (url: string) => {
+	const fetcher = () => {
 		// Only fetch using getProductsByNameAndCat when both searchTerm and categoryType are not null
 		if (searchTerm && categoryType) {
 			return getProductsByNameAndCat(searchTerm, categoryType);
@@ -31,9 +43,9 @@ const Products = () => {
 		else if (searchTerm) {
 			return getProductsByName(searchTerm);
 		}
-		// If both searchTerm and categoryType are null, fetch the first page products
+		// If both searchTerm and categoryType are null, fetch the next page of products
 		else {
-			return getFirstPageProducts();
+			return getProducts(page);
 		}
 	};
 
@@ -43,12 +55,12 @@ const Products = () => {
 		isValidating: isLoading,
 	} = useSWR(
 		searchTerm && categoryType
-			? `name-and-category-${searchTerm}-${categoryType}`
+			? `name-and-category-${searchTerm}-${categoryType}-page-${page}`
 			: categoryType
-			? `category-${categoryType}`
+			? `category-${categoryType}-page-${page}`
 			: searchTerm
-			? `name-${searchTerm}`
-			: 'first-page-products',
+			? `name-${searchTerm}-page-${page}`
+			: `page-${page}-products`,
 		fetcher,
 		{ revalidateOnFocus: false }
 	);
@@ -74,17 +86,34 @@ const Products = () => {
 				))}
 			</div>
 
-			{products && products.length > 24 && (
-				<div className='flex justify-center items-center w-full py-6 bottom-0 dark:bg-bgAccentDark bg-bgAccentLight'>
-					<button
-						className='primary-button flex items-center space-x-2'
-						onClick={() => console.log('More')}
-					>
-						<ArrowDownNarrowWide className='h-6 w-6' />
-						<span>More</span>
-					</button>
+			{/* pagination */}
+			<div className='flex flex-col justify-center items-center space-y-3 dark:bg-bgAccentDark bg-bgAccentLight'>
+				{products && products?.length >= 1 ? (
+					<span className='text-sm'>
+						Showing {products.length} of {products.length} results
+					</span>
+				) : (
+					<span className='text-sm'>No results</span>
+				)}
+				<div className='space-x-4 flex'>
+					{page > 0 && (
+						<button
+							className='primary-button flex items-center space-x-2'
+							onClick={() => dispatch({ type: 'PREV_PAGE' })}
+						>
+							<span className='text-sm'>Back</span>
+						</button>
+					)}
+					{products && products?.length >= 24 && (
+						<button
+							className='primary-button flex items-center space-x-2'
+							onClick={() => dispatch({ type: 'NEXT_PAGE' })}
+						>
+							<span className='text-sm'>Next</span>
+						</button>
+					)}
 				</div>
-			)}
+			</div>
 		</div>
 	);
 };

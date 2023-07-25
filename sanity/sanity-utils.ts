@@ -39,6 +39,31 @@ export const getProductsByCategory = async (
     }`,
 		{
 			keyword: category,
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
+		}
+	);
+};
+
+export const getProducts = async (page: number): Promise<Product[]> => {
+	return await client.fetch(
+		groq`*[_type == "product"] | order(_createdAt) [${page * 25}...${
+			(page + 1) * 25
+		}] {
+					_id,
+					_createdAt,
+					name,
+					tags,
+					imageLink,
+					productLink,
+				}`,
+		{
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
 		}
 	);
 };
@@ -55,6 +80,10 @@ export const getProductsByName = async (name: string): Promise<Product[]> => {
 		}`,
 		{
 			keyword: name,
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
 		}
 	);
 };
@@ -75,6 +104,10 @@ export const getProductsByNameAndCat = async (
 		{
 			keyword: name,
 			category: category,
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
 		}
 	);
 };
