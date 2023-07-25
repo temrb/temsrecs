@@ -6,7 +6,7 @@ import React from 'react';
 
 const Page = () => {
 	return (
-		<div className=' space-y-5 p-4'>
+		<div className=' space-y-5 lg:p-6 p-4'>
 			<h1 className='font-bold text-3xl'>Cookie Policy</h1>
 			<p>
 				Effective Date: 24-Jul-2023 <br />
@@ -58,7 +58,7 @@ const Page = () => {
 			</p>
 			<p>
 				<a
-					className='text-indigo-400 hover:underline'
+					className='text-indigo-500 hover:underline'
 					href='https://support.google.com/accounts/answer/32050'
 					target='_blank'
 				>
@@ -67,7 +67,7 @@ const Page = () => {
 			</p>
 			<p>
 				<a
-					className='text-indigo-400 hover:underline'
+					className='text-indigo-500 hover:underline'
 					href='https://support.apple.com/en-in/guide/safari/sfri11471/mac'
 					target='_blank'
 				>
@@ -76,7 +76,7 @@ const Page = () => {
 			</p>
 			<p>
 				<a
-					className='text-indigo-400 hover:underline'
+					className='text-indigo-500 hover:underline'
 					href='https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox?redirectslug=delete-cookies-remove-info-websites-stored&redirectlocale=en-US'
 					target='_blank'
 				>
@@ -85,7 +85,7 @@ const Page = () => {
 			</p>
 			<p>
 				<a
-					className='text-indigo-400 hover:underline'
+					className='text-indigo-500 hover:underline'
 					href='https://support.microsoft.com/en-us/topic/how-to-delete-cookie-files-in-internet-explorer-bca9446f-d873-78de-77ba-d42645fa52fc'
 					target='_blank'
 				>
@@ -108,7 +108,7 @@ const Page = () => {
 				</a>
 			</p>
 
-			<h2 className='font-bold text-lg'>Affiliate Marketing Disclosure:</h2>
+			<h2 className='font-bold text-lg'>Affiliate Marketing Disclosure</h2>
 			<p>
 				Please note that some links on this website may be affiliate links,
 				which means if you click on them and make a purchase, we may receive a

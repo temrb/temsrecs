@@ -30,6 +30,7 @@ const blog = {
 			options: {
 				list: [
 					{ title: 'Tech', value: 'Tech' },
+					{ title: 'Software', value: 'Software' },
 					{ title: 'Home', value: 'Home' },
 					{ title: 'Essentials', value: 'Essentials' },
 					{ title: 'Career', value: 'Career' },
