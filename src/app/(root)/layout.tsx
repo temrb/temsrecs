@@ -26,6 +26,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang='en'>
 			<head>
+				<Script
+					id='cookieyes'
+					type='text/javascript'
+					src='https://cdn-cookieyes.com/client_data/5c0d8cc2f5425587bddfde99/script.js'
+				/>
+
 				<Script type='text/javascript' id='clarity'>
 					{`
           (function (c, l, a, r, i, t, y) {
