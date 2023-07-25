@@ -33,10 +33,14 @@ import { useSWRConfig } from 'swr';
 import {
 	getProductsByCategory,
 	getProductsByName,
+	getProductsByNameAndCat,
 } from '../../../sanity/sanity-utils';
 import { searchSlice } from '@/zustand/features/searchSlice';
+import { debounce } from 'lodash';
 
 const Search = () => {
+	const debouncedSetSearchTerm = debounce((value) => setSearchTerm(value), 500);
+
 	const categories: { id: number; name: Category; icon: ReactNode }[] = [
 		{ id: 1, name: 'Tech', icon: <Headphones className='h-4' /> },
 		{ id: 2, name: 'Essentials', icon: <Rocket className='h-4' /> },
@@ -55,12 +59,8 @@ const Search = () => {
 	);
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [hideMenu, setHideMenu] = useState(false);
-
 	const { mutate } = useSWRConfig();
-
 	const setCategoryType = searchSlice((state) => state.setCategoryType);
-	const [localSearchTerm, setLocalSearchTerm] = useState('');
-
 	const setSearchTerm = searchSlice((state) => state.setSearchTerm);
 
 	useEffect(() => {
@@ -76,18 +76,9 @@ const Search = () => {
 		}
 	}, [width]);
 
-	useEffect(() => {
-		if (localSearchTerm.length === 0) {
-			setSearchTerm('');
-		}
-	}, [localSearchTerm, setSearchTerm]);
-
 	const handleCategoryClick = (category: Category) => {
 		setSelectedCategory(category);
-
 		setCategoryType(category);
-
-		mutate(category, getProductsByCategory(category));
 	};
 
 	const CategoryButton = ({
@@ -109,27 +100,16 @@ const Search = () => {
 		</button>
 	);
 
-	const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault(); // prevent form submission and page refresh
-
-		if (localSearchTerm.length < 3) {
-			alert('Please enter at least 3 characters for the search term');
-			return;
-		}
-
-		setSearchTerm(localSearchTerm);
-		mutate(
-			`name-${localSearchTerm}`,
-			getProductsByName(localSearchTerm || ' ')
-		);
-	};
-
 	return (
 		<div className='lg:w-3/5 md:w-5/6 space-y-4 p-4 pt-8 w-full flex flex-col items-center justify-center'>
-			<form
-				className='w-full flex items-center space-x-2'
-				onSubmit={handleSearch}
-			>
+			<div className='w-full flex items-center space-x-2'>
+				<input
+					className='w-full primary-input flex'
+					type='text'
+					placeholder='Search 🔍'
+					onChange={(event) => debouncedSetSearchTerm(event.target.value)}
+					required
+				/>
 				{hideMenu && (
 					<button
 						className='primary-button'
@@ -139,17 +119,7 @@ const Search = () => {
 						<Cog className='h-6 w-6' />
 					</button>
 				)}
-				<input
-					className='w-full primary-input flex'
-					type='text'
-					placeholder='Search'
-					onChange={(event) => setLocalSearchTerm(event.target.value)}
-					required
-				/>
-				<button className='primary-button' type='submit'>
-					<SearchIcon className='h-6 w-6' />
-				</button>
-			</form>
+			</div>
 			{menuOpen && (
 				<div className='lg:flex flex-row sm:gap-4 gap-3 items-center justify-start w-fit grid md:grid-cols-5 sm:grid-cols-4 grid-cols-3'>
 					{categories?.map((category) => (
