@@ -85,7 +85,7 @@ const Products = () => {
 						duration: 0.6,
 						ease: [0.165, 0.84, 0.44, 1],
 					}}
-					className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 pb-24'
+					className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 md:pb-24 pb-24'
 				>
 					{products?.map((product) => (
 						<ProductItem
@@ -106,7 +106,7 @@ const Products = () => {
 				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
 				border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
-				{products && products?.length >= 24 && (
+				{products && products?.length >= 14 && (
 					<button
 						className='primary-button text-xs'
 						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
