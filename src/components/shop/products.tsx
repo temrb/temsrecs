@@ -106,7 +106,7 @@ const Products = () => {
 				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
 				border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
-				{products && products?.length >= 1 && (
+				{products && products?.length >= 24 && (
 					<button
 						className='primary-button text-xs'
 						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
