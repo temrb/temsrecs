@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['m.media-amazon.com'],
+        domains: ['m.media-amazon.com', 'https://temsrecs.s3.us-east-2.amazonaws.com'],
         remotePatterns: [
             {
                 protocol: "https",
