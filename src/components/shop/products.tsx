@@ -85,7 +85,7 @@ const Products = () => {
 						duration: 0.6,
 						ease: [0.165, 0.84, 0.44, 1],
 					}}
-					className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 pb-20'
+					className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 pb-24'
 				>
 					{products?.map((product) => (
 						<ProductItem
@@ -103,40 +103,36 @@ const Products = () => {
 			{/* pagination */}
 			<div
 				className='flex fixed bottom-0 z-40 w-full
-				h-16 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-around px-4 border-t-2 
-				border-bgAccentDark dark:border-bgAccentLight'
+				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
+				border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
-				<div className='flex h-full w-full justify-start items-center'>
-					<Link
-						className=' justify-start items-center flex text-xs primary-button'
-						href='/policies'
+				{products && products?.length >= 1 && (
+					<button
+						className='primary-button text-xs'
+						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
 					>
-						<BadgeInfo size={20} />
-					</Link>
-				</div>
-				<div className='flex h-full w-full justify-center items-center'>
-					{page > 0 && (
-						<button
-							className='primary-button flex items-center space-x-2'
-							onClick={() => dispatch({ type: 'PREV_PAGE' })}
-						>
-							<span className='text-sm'>{'< Back'}</span>
-						</button>
-					)}
-					{products && products?.length >= 1 && (
-						<button
-							className='primary-button text-xs'
-							onClick={() => dispatch({ type: 'NEXT_PAGE' })}
-						>
-							<span className='text-sm'>{'Next >'}</span>
-						</button>
-					)}
-				</div>
-				<div className='w-full h-full justify-end items-center flex text-xs'>
+						<span className='text-sm'>{'Next >'}</span>
+					</button>
+				)}
+				{page > 0 && (
+					<button
+						className='primary-button flex items-center space-x-2'
+						onClick={() => dispatch({ type: 'PREV_PAGE' })}
+					>
+						<span className='text-sm'>{'< Back'}</span>
+					</button>
+				)}
+				<span>
 					{products && products?.length >= 1
 						? `${products.length} of ${products.length}`
 						: 'No results'}
-				</div>
+				</span>
+				<Link
+					className=' justify-start items-center flex text-xs primary-button'
+					href='/policies'
+				>
+					<BadgeInfo size={20} />
+				</Link>
 			</div>
 		</div>
 	);
