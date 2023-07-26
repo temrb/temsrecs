@@ -34,10 +34,10 @@ const Search = () => {
 	const debouncedSetSearchTerm = debounce((value) => setSearchTerm(value), 500);
 
 	const categories: { id: number; name: Category; icon: ReactNode }[] = [
-		{ id: 1, name: 'Tech', icon: <Headphones className='h-4' /> },
-		{ id: 2, name: 'Software', icon: <Cpu className='h-4' /> },
-		{ id: 3, name: 'Career', icon: <GraduationCap className='h-4' /> },
-		{ id: 4, name: 'Tutorials', icon: <Brain className='h-4' /> },
+		{ id: 1, name: 'Software', icon: <Cpu className='h-4' /> },
+		{ id: 2, name: 'Career', icon: <GraduationCap className='h-4' /> },
+		{ id: 3, name: 'Tutorials', icon: <Brain className='h-4' /> },
+		{ id: 4, name: 'Tech', icon: <Headphones className='h-4' /> },
 		{ id: 5, name: 'Essentials', icon: <SprayCan className='h-4' /> },
 		{ id: 6, name: 'Home', icon: <Lamp className='h-4' /> },
 		{ id: 7, name: 'Other', icon: <CircleEllipsis className='h-4' /> },
