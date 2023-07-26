@@ -35,15 +35,15 @@ const Products = () => {
 	const fetcher = () => {
 		// Only fetch using getProductsByNameAndCat when both searchTerm and categoryType are not null
 		if (searchTerm && categoryType) {
-			return getProductsByNameAndCat(searchTerm, categoryType);
+			return getProductsByNameAndCat(searchTerm, categoryType, page);
 		}
 		// If categoryType is not null but searchTerm is null, fetch using getProductsByCategory
 		else if (categoryType) {
-			return getProductsByCategory(categoryType);
+			return getProductsByCategory(categoryType, page);
 		}
 		// If searchTerm is not null but categoryType is null, fetch using getProductsByName
 		else if (searchTerm) {
-			return getProductsByName(searchTerm);
+			return getProductsByName(searchTerm, page);
 		}
 		// If both searchTerm and categoryType are null, fetch the next page of products
 		else {
