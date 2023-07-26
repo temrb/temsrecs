@@ -14,8 +14,9 @@ const Header = () => {
 	const [viewSocials, setViewSocials] = useState(false);
 
 	const socialItems: SocialMedia[] = [
-		{ id: 1, type: 'tiktok', link: 'https://www.tiktok.com/@tem.tk' },
-		{ id: 2, type: 'tiktok', link: 'https://www.tiktok.com/@tem.toks' },
+		{ id: 1, type: 'tiktok', link: 'https://www.tiktok.com/@tem.career' },
+		{ id: 2, type: 'tiktok', link: 'https://www.tiktok.com/@tem.tech' },
+		{ id: 3, type: 'tiktok', link: 'https://www.tiktok.com/@tem.essentials7' },
 		// { id: 3, type: 'insta', link: 'https://www.instagram.com/' },
 		// { id: 4, type: 'twitter', link: 'https://twitter.com/' },
 		// { id: 5, type: 'youtube', link: 'https://www.youtube.com/' },
