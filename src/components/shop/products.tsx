@@ -101,12 +101,14 @@ const Products = () => {
 			</AnimatePresence>
 
 			{/* pagination */}
+
+			{/*TODO edge case if no products in next page*/}
 			<div
 				className='flex fixed bottom-0 z-40 w-full
 				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
 				border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
-				{products && products?.length >= 14 && (
+				{products && products?.length === 15 && (
 					<button
 						className='primary-button text-xs'
 						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
@@ -122,11 +124,9 @@ const Products = () => {
 						<span className='text-sm'>{'< Back'}</span>
 					</button>
 				)}
-				<span>
-					{products && products?.length >= 1
-						? `${products.length} of ${products.length}`
-						: 'No results'}
-				</span>
+				{products?.length === 0 && (
+					<span className='text-xs'>No products found</span>
+				)}
 				<Link
 					className=' justify-start items-center flex text-xs primary-button'
 					href='/policies'
