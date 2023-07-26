@@ -24,6 +24,8 @@ type Category =
 	| 'Home'
 	| 'Career'
 	| 'Health'
+	| 'Finance'
+	| 'Travel'
 	| 'Tutorials'
 	| 'Other';
 
