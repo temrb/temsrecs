@@ -9,7 +9,7 @@ export const getProductsByCategory = async (
 	category: string
 ): Promise<Product[]> => {
 	return await client.fetch(
-		groq`*[_type == "product" && $keyword in tags] | order(_createdAt desc) [0...25] {
+		groq`*[_type == "product" && $keyword in tags] | order(_createdAt desc) [0...15] {
       _id,
       _createdAt,
       name,
