@@ -5,7 +5,7 @@ import {
 	Cog,
 	X,
 	GraduationCap,
-	Rocket,
+	SprayCan,
 	Lamp,
 	Headphones,
 	CircleEllipsis,
@@ -24,8 +24,6 @@ type Category =
 	| 'Home'
 	| 'Career'
 	| 'Health'
-	| 'Finance'
-	| 'Travel'
 	| 'Tutorials'
 	| 'Other';
 
@@ -39,9 +37,9 @@ const Search = () => {
 	const categories: { id: number; name: Category; icon: ReactNode }[] = [
 		{ id: 1, name: 'Tech', icon: <Headphones className='h-4' /> },
 		{ id: 2, name: 'Software', icon: <Cpu className='h-4' /> },
-		{ id: 3, name: 'Essentials', icon: <Rocket className='h-4' /> },
-		{ id: 4, name: 'Home', icon: <Lamp className='h-4' /> },
-		{ id: 5, name: 'Career', icon: <GraduationCap className='h-4' /> },
+		{ id: 3, name: 'Career', icon: <GraduationCap className='h-4' /> },
+		{ id: 4, name: 'Essentials', icon: <SprayCan className='h-4' /> },
+		{ id: 5, name: 'Home', icon: <Lamp className='h-4' /> },
 		{ id: 6, name: 'Health', icon: <Dumbbell className='h-4' /> },
 		{ id: 7, name: 'Finance', icon: <Coins className='h-4' /> },
 		{ id: 8, name: 'Travel', icon: <PlaneTakeoff className='h-4' /> },
