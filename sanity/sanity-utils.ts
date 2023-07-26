@@ -6,10 +6,13 @@ import { Product } from '../types/Product';
 import { Blog } from '../types/Blog';
 
 export const getProductsByCategory = async (
-	category: string
+	category: string,
+	page: number
 ): Promise<Product[]> => {
 	return await client.fetch(
-		groq`*[_type == "product" && $keyword in tags] | order(_createdAt desc) [0...15] {
+		groq`*[_type == "product" && $keyword in tags] | order(_createdAt desc) [${
+			page * 15
+		}...${(page + 1) * 15}] {
       _id,
       _createdAt,
       name,
@@ -48,9 +51,14 @@ export const getProducts = async (page: number): Promise<Product[]> => {
 	);
 };
 
-export const getProductsByName = async (name: string): Promise<Product[]> => {
+export const getProductsByName = async (
+	name: string,
+	page: number
+): Promise<Product[]> => {
 	return await client.fetch(
-		groq`*[_type == "product" && (name match ($keyword + "*") || tags[] match ($keyword + "*"))] | order(_createdAt desc) [0...15] {
+		groq`*[_type == "product" && (name match ($keyword + "*") || tags[] match ($keyword + "*"))] | order(_createdAt desc) [${
+			page * 15
+		}...${(page + 1) * 15}] {
 			_id,
 			_createdAt,
 			name,
@@ -70,10 +78,13 @@ export const getProductsByName = async (name: string): Promise<Product[]> => {
 
 export const getProductsByNameAndCat = async (
 	name: string,
-	category: string
+	category: string,
+	page: number
 ): Promise<Product[]> => {
 	return await client.fetch(
-		groq`*[_type == "product" && (name match ($keyword + "*") || tags[] match ($keyword + "*")) && $category in tags] | order(_createdAt desc) [0...15] {
+		groq`*[_type == "product" && (name match ($keyword + "*") || tags[] match ($keyword + "*")) && $category in tags] | order(_createdAt desc) [${
+			page * 15
+		}...${(page + 1) * 15}] {
 			_id,
 			_createdAt,
 			name,
