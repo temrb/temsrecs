@@ -57,11 +57,6 @@ const Products = () => {
 		{ revalidateOnFocus: false }
 	);
 
-	// 	if (error) return <div className='text-red-600'>Failed to load</div>;
-	// 	if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
-	//
-	// 	if (!products) return <div className='text-gray-600'>No Products</div>;
-
 	return (
 		<div className='w-full h-full'>
 			{/* products */}
@@ -111,24 +106,32 @@ const Products = () => {
 				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
 				border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
-				{page > 0 && (
-					<button
-						className='primary-button flex items-center space-x-2'
-						onClick={() => setPage(page - 1)}
-					>
-						<span className='text-sm'>{'< Back'}</span>
-					</button>
-				)}
-				{products && products?.length === 15 && (
-					<button
-						className='primary-button text-xs'
-						onClick={() => setPage(page + 1)}
-					>
-						<span className='text-sm'>{'Next >'}</span>
-					</button>
-				)}
-				{products?.length === 0 && (
-					<span className='text-xs'>No Products 😢</span>
+				{isLoading ? (
+					<div className='flex'>
+						<LoadingSpinner size='h-6 w-6' />
+					</div>
+				) : (
+					<>
+						{page > 0 && (
+							<button
+								className='primary-button flex items-center space-x-2'
+								onClick={() => setPage(page - 1)}
+							>
+								<span className='text-sm'>{'< Back'}</span>
+							</button>
+						)}
+						{products?.length === 15 && (
+							<button
+								className='primary-button text-xs'
+								onClick={() => setPage(page + 1)}
+							>
+								<span className='text-sm'>{'Next >'}</span>
+							</button>
+						)}
+						{products?.length === 0 && (
+							<span className='text-xs'>No Products 😢</span>
+						)}
+					</>
 				)}
 				<Link
 					className=' justify-start items-center flex text-xs primary-button'
