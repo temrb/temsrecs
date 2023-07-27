@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useReducer } from 'react';
+import React from 'react';
 import ProductItem from './product-item';
 import {
 	getProductsByCategory,
@@ -15,19 +15,9 @@ import { BadgeInfo } from 'lucide-react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const pageReducer = (state = 0, action: any) => {
-	switch (action.type) {
-		case 'NEXT_PAGE':
-			return state + 1;
-		case 'PREV_PAGE':
-			return state > 0 ? state - 1 : 0;
-		default:
-			throw new Error();
-	}
-};
-
 const Products = () => {
-	const [page, dispatch] = useReducer(pageReducer, 0);
+	const setPage = searchSlice((state) => state.setPage);
+	const page = searchSlice((state) => state.page);
 
 	const categoryType = searchSlice((state) => state.categoryType);
 	const searchTerm = searchSlice((state) => state.searchTerm);
@@ -67,38 +57,51 @@ const Products = () => {
 		{ revalidateOnFocus: false }
 	);
 
-	if (error) return <div className='text-red-600'>Failed to load</div>;
-	if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
-
-	if (!products) return <div className='text-gray-600'>No Products</div>;
+	// 	if (error) return <div className='text-red-600'>Failed to load</div>;
+	// 	if (isLoading) return <LoadingSpinner size='h-10 w-10' />;
+	//
+	// 	if (!products) return <div className='text-gray-600'>No Products</div>;
 
 	return (
 		<div className='w-full h-full'>
 			{/* products */}
-
-			<AnimatePresence>
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: -30 }}
-					transition={{
-						duration: 0.6,
-						ease: [0.165, 0.84, 0.44, 1],
-					}}
-					className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 md:pb-24 pb-24'
-				>
-					{products?.map((product) => (
-						<ProductItem
-							key={product._id}
-							image={product.imageLink}
-							imageAlt={product.name + ' image alt'}
-							productLink={product.productLink}
-							tags={product.tags}
-							name={product.name}
-						/>
-					))}
-				</motion.div>
-			</AnimatePresence>
+			{isLoading ? (
+				<div className='flex justify-center items-center w-full h-full'>
+					<LoadingSpinner size='h-10 w-10' />
+				</div>
+			) : error ? (
+				<div className='flex justify-center items-center w-full h-full'>
+					<div className='text-red-600'>Failed to load</div>
+				</div>
+			) : !products ? (
+				<div className='flex justify-center items-center w-full h-full'>
+					<div className='text-gray-600'>No Products</div>
+				</div>
+			) : (
+				<AnimatePresence>
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -30 }}
+						transition={{
+							duration: 0.6,
+							ease: [0.165, 0.84, 0.44, 1],
+						}}
+						className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 md:pb-28 pb-28'
+					>
+						{products?.map((product) => (
+							<ProductItem
+								key={product._id}
+								image={product.imageLink}
+								imageAlt={product.name + ' image alt'}
+								productLink={product.productLink}
+								tags={product.tags}
+								name={product.name}
+							/>
+						))}
+					</motion.div>
+				</AnimatePresence>
+			)}
 
 			{/* pagination */}
 
@@ -111,7 +114,7 @@ const Products = () => {
 				{page > 0 && (
 					<button
 						className='primary-button flex items-center space-x-2'
-						onClick={() => dispatch({ type: 'PREV_PAGE' })}
+						onClick={() => setPage(page - 1)}
 					>
 						<span className='text-sm'>{'< Back'}</span>
 					</button>
@@ -119,13 +122,13 @@ const Products = () => {
 				{products && products?.length === 15 && (
 					<button
 						className='primary-button text-xs'
-						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
+						onClick={() => setPage(page + 1)}
 					>
 						<span className='text-sm'>{'Next >'}</span>
 					</button>
 				)}
 				{products?.length === 0 && (
-					<span className='text-xs'>No products found</span>
+					<span className='text-xs'>No Products 😢</span>
 				)}
 				<Link
 					className=' justify-start items-center flex text-xs primary-button'

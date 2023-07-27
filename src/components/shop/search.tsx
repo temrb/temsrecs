@@ -1,4 +1,5 @@
 /** @format */
+'use client';
 
 import React, { useState, useEffect, ReactNode } from 'react';
 import {
@@ -9,9 +10,6 @@ import {
 	Lamp,
 	Headphones,
 	CircleEllipsis,
-	PlaneTakeoff,
-	Coins,
-	Dumbbell,
 	Brain,
 	Cpu,
 } from 'lucide-react';
@@ -32,6 +30,7 @@ import { debounce } from 'lodash';
 
 const Search = () => {
 	const debouncedSetSearchTerm = debounce((value) => setSearchTerm(value), 500);
+	const resetPage = searchSlice((state) => state.resetPage);
 
 	const categories: { id: number; name: Category; icon: ReactNode }[] = [
 		{ id: 1, name: 'Software', icon: <Cpu className='h-4' /> },
@@ -68,6 +67,7 @@ const Search = () => {
 	const handleCategoryClick = (category: Category) => {
 		setSelectedCategory(category);
 		setCategoryType(category);
+		resetPage();
 	};
 
 	const CategoryButton = ({
@@ -96,7 +96,10 @@ const Search = () => {
 					className='w-full primary-input flex'
 					type='text'
 					placeholder='🔍 Search'
-					onChange={(event) => debouncedSetSearchTerm(event.target.value)}
+					onChange={(event) => {
+						debouncedSetSearchTerm(event.target.value);
+						resetPage();
+					}}
 					required
 				/>
 				{hideMenu && (
@@ -131,6 +134,7 @@ const Search = () => {
 								setMenuOpen(false);
 							}
 							setCategoryType(null);
+							resetPage();
 						}}
 						type='button'
 					>
