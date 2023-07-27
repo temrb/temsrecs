@@ -108,20 +108,20 @@ const Products = () => {
 				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
 				border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
-				{products && products?.length === 15 && (
-					<button
-						className='primary-button text-xs'
-						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
-					>
-						<span className='text-sm'>{'Next >'}</span>
-					</button>
-				)}
 				{page > 0 && (
 					<button
 						className='primary-button flex items-center space-x-2'
 						onClick={() => dispatch({ type: 'PREV_PAGE' })}
 					>
 						<span className='text-sm'>{'< Back'}</span>
+					</button>
+				)}
+				{products && products?.length === 15 && (
+					<button
+						className='primary-button text-xs'
+						onClick={() => dispatch({ type: 'NEXT_PAGE' })}
+					>
+						<span className='text-sm'>{'Next >'}</span>
 					</button>
 				)}
 				{products?.length === 0 && (
