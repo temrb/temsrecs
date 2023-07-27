@@ -73,9 +73,9 @@ const Products = () => {
 				<div className='flex justify-center items-center w-full h-full'>
 					<div className='text-red-600'>Failed to load</div>
 				</div>
-			) : !products ? (
+			) : products?.length === 0 ? (
 				<div className='flex justify-center items-center w-full h-full'>
-					<div className='text-gray-600'>No Products</div>
+					No Products 😢
 				</div>
 			) : (
 				<AnimatePresence>
