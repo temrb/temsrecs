@@ -33,7 +33,7 @@ const Header = () => {
 	return (
 		<header
 			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark 
-			bg-bgAccentLight dark:bg-bgAccentDark h-40 sticky top-0 z-20 items-center flex flex-col space-y-4'
+			bg-bgAccentLight dark:bg-bgAccentDark h-44 sticky top-0 z-20 items-center flex flex-col space-y-2'
 		>
 			<div className='w-full justify-center items-center flex pt-2'>
 				<button
@@ -56,9 +56,14 @@ const Header = () => {
 			flex-col space-y-4'
 				>
 					{/* title */}
-					<h1 className='md:text-xl text-lg font-bold'>tem&apos;s recs</h1>
+					<div className='flex flex-col text-center'>
+						<h1 className='md:text-xl text-stone-600 dark:text-stone-300 text-lg font-bold'>
+							tem&apos;s recs
+						</h1>
+						<p className='text-xs font-light'>Product Recommendations</p>
+					</div>
 					{/* nav items */}
-					<div className='space-x-4 flex'>
+					<div className='space-x-4 flex '>
 						<button
 							className={`select-button
 						${pathname === '/' && 'select-button-active'}
