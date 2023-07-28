@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<Script
 					id='cookieyes'
 					type='text/javascript'
-					src={process.env.NEXT_PUBLIC_COOKIE_EYES}
+					src='https://cdn-cookieyes.com/client_data/5c0d8cc2f5425587bddfde99/script.js'
 				/>
 
 				<Script type='text/javascript' id='clarity'>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
     t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
     y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-})(window, document, "clarity", "script", ${process.env.NEXT_PUBLIC_CLARITY_ID});
+})(window, document, "clarity", "script", "i2n3gilivs");
           `}
 				</Script>
 			</head>
