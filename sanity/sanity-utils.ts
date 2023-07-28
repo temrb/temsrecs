@@ -13,12 +13,13 @@ export const getProductsByCategory = async (
 		groq`*[_type == "product" && $keyword in tags] | order(_createdAt desc) [${
 			page * 15
 		}...${(page + 1) * 15}] {
-      _id,
-      _createdAt,
-      name,
-      tags,
-      imageLink,
-      productLink,
+			_id,
+			_createdAt,
+			name,
+			tags,
+			imageLink,
+			productLink,
+			productPrice,
     }`,
 		{
 			keyword: category,
@@ -41,6 +42,7 @@ export const getProducts = async (page: number): Promise<Product[]> => {
 					tags,
 					imageLink,
 					productLink,
+					productPrice,
 				}`,
 		{
 			next: {
@@ -65,6 +67,7 @@ export const getProductsByName = async (
 			tags,
 			imageLink,
 			productLink,
+			productPrice,
 		}`,
 		{
 			keyword: name,
@@ -91,6 +94,7 @@ export const getProductsByNameAndCat = async (
 			tags,
 			imageLink,
 			productLink,
+			productPrice,
 		}`,
 		{
 			keyword: name,

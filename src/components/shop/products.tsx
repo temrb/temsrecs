@@ -86,12 +86,13 @@ const Products = () => {
 					>
 						{products?.map((product) => (
 							<ProductItem
-								key={product._id}
-								image={product.imageLink}
-								imageAlt={product.name + ' image alt'}
-								productLink={product.productLink}
-								tags={product.tags}
-								name={product.name}
+								key={product?._id}
+								image={product?.imageLink}
+								imageAlt={product?.name + ' image alt'}
+								productLink={product?.productLink}
+								tags={product?.tags}
+								name={product?.name}
+								productPrice={product?.productPrice}
 							/>
 						))}
 					</motion.div>
