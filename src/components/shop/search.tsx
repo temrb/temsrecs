@@ -12,6 +12,8 @@ import {
 	CircleEllipsis,
 	Brain,
 	Cpu,
+	Shirt,
+	HeartPulse,
 } from 'lucide-react';
 
 import { useWindowSize } from 'usehooks-ts';
@@ -19,6 +21,8 @@ type Category =
 	| 'Tech'
 	| 'Software'
 	| 'Essentials'
+	| 'Lifestyle'
+	| 'Health'
 	| 'Home'
 	| 'Career'
 	| 'Tutorials'
@@ -38,8 +42,10 @@ const Search = () => {
 		{ id: 3, name: 'Tutorials', icon: <Brain className='h-4' /> },
 		{ id: 4, name: 'Tech', icon: <Headphones className='h-4' /> },
 		{ id: 5, name: 'Essentials', icon: <SprayCan className='h-4' /> },
-		{ id: 6, name: 'Home', icon: <Lamp className='h-4' /> },
-		{ id: 7, name: 'Other', icon: <CircleEllipsis className='h-4' /> },
+		{ id: 6, name: 'Lifestyle', icon: <Shirt className='h-4' /> },
+		{ id: 7, name: 'Health', icon: <HeartPulse className='h-4' /> },
+		{ id: 8, name: 'Home', icon: <Lamp className='h-4' /> },
+		{ id: 9, name: 'Other', icon: <CircleEllipsis className='h-4' /> },
 	];
 	const { width } = useWindowSize();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(

@@ -33,6 +33,8 @@ const blog = {
 					{ title: 'Software', value: 'Software' },
 					{ title: 'Home', value: 'Home' },
 					{ title: 'Essentials', value: 'Essentials' },
+					{ title: 'Lifestyle', value: 'Lifestyle' },
+					{ title: 'Health', value: 'Health' },
 					{ title: 'Career', value: 'Career' },
 					{ title: 'Tutorials', value: 'Tutorials' },
 					{ title: 'Other', value: 'Other' },
