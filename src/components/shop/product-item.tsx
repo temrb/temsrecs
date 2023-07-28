@@ -6,10 +6,11 @@ import { ArrowUpRight, Share2, ClipboardCheck } from 'lucide-react';
 
 interface Props {
 	name: string;
+	tags: string[];
 	image: string;
 	imageAlt: string;
 	productLink: string;
-	tags: string[];
+	productPrice: number;
 }
 
 const ProductItem = (props: Props) => {
@@ -20,6 +21,8 @@ const ProductItem = (props: Props) => {
 		navigator.clipboard.writeText(props.productLink);
 		setCopied(true);
 	};
+
+	console.log(props.productPrice);
 
 	return (
 		<div className='group flex flex-col dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'>
@@ -94,19 +97,27 @@ const ProductItem = (props: Props) => {
 				</div>
 			</div>
 			<div
-				className='space-x-4 p-2 overflow-x-auto flex flex-row border-t-4 
-				dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2'
+				className='flex w-full justify-between border-t-4 
+				dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2 p-2'
 			>
-				{props.tags.map((tag: string) => (
-					<div
-						// using sanity tag as key
-						key={tag}
-						className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
-							p-1 rounded-lg shadow-sm text-sm items-center justify-center capitalize'
-					>
-						{tag}
+				<div className='space-x-4 overflow-x-auto flex flex-row'>
+					{props.tags.map((tag: string) => (
+						<div
+							// using sanity tag as key
+							key={tag}
+							className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
+							p-1 rounded-lg shadow-sm text-sm items-center justify-center capitalize
+							w-full'
+						>
+							{tag}
+						</div>
+					))}
+				</div>
+				{props?.productPrice && (
+					<div className='flex bg-rose-600 dark:bg-rose-700 items-center text-bgAccentLight p-1 rounded-lg'>
+						${props?.productPrice}
 					</div>
-				))}
+				)}
 			</div>
 		</div>
 	);

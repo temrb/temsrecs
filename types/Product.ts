@@ -7,4 +7,5 @@ export type Product = {
 	tags: string[];
 	imageLink: string;
 	productLink: string;
+	productPrice: number;
 };
