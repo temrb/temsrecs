@@ -60,7 +60,7 @@ const Header = () => {
 						<h1 className='md:text-xl text-stone-600 dark:text-stone-300 text-lg font-bold'>
 							tem&apos;s recs
 						</h1>
-						<p className='text-xs font-light'>Product Recommendations</p>
+						<p className='text-xs font-light'>⭐️⭐️⭐️⭐️+ Rated Products</p>
 					</div>
 					{/* nav items */}
 					<div className='space-x-4 flex '>
