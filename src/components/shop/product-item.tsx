@@ -34,7 +34,7 @@ const ProductItem = (props: Props) => {
 				<Image
 					src={props?.image}
 					fill
-					loading='lazy'
+					loading='eager'
 					placeholder='blur'
 					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhQJ/6tZ9OQAAAABJRU5ErkJggg=='
 					style={{ objectFit: 'contain' }}
