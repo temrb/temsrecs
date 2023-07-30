@@ -3,7 +3,7 @@
 import React, { ReactNode } from 'react';
 import '../../styles/globals.css';
 import { Poppins } from 'next/font/google';
-import Ga4 from '@/utils/ga4.component';
+
 import Script from 'next/script';
 import Header from '@/components/header';
 import { Analytics } from '@vercel/analytics/react';
@@ -26,32 +26,35 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang='en'>
 			<head>
-				<Script
-					id='cookieyes'
-					type='text/javascript'
-					src='https://cdn-cookieyes.com/client_data/5c0d8cc2f5425587bddfde99/script.js'
-				/>
-
-				<Script type='text/javascript' id='clarity'>
-					{`
+				{process.env.NODE_ENV === 'production' && (
+					<>
+						<Script
+							id='cookieyes'
+							type='text/javascript'
+							src='https://cdn-cookieyes.com/client_data/5c0d8cc2f5425587bddfde99/script.js'
+						/>
+						<Script type='text/javascript' id='clarity'>
+							{`
           (function (c, l, a, r, i, t, y) {
     c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
     t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
     y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
 })(window, document, "clarity", "script", "i2n3gilivs");
           `}
-				</Script>
+						</Script>
+					</>
+				)}
 			</head>
 			<body
 				className={`${poppins.className} dark:bg-bgAccentDark bg-bgAccentLight text-bgAccentDark dark:text-bgAccentLight`}
 			>
-				<Ga4>
+				<>
 					<Header />
 					<section className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
 						{children}
 					</section>
-					<Analytics />
-				</Ga4>
+				</>
+				{process.env.NODE_ENV === 'production' && <Analytics />}
 			</body>
 		</html>
 	);
