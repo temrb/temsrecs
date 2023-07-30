@@ -1,5 +1,4 @@
 /** @format */
-'use client';
 
 import React from 'react';
 import Search from '@/components/shop/search';

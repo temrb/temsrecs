@@ -6,6 +6,7 @@ import { Store, BookOpen } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import SocialItems from './social-item';
 import { SocialMedia } from '../../types/SocialMedia';
+import Search from './shop/search';
 
 const Header = () => {
 	const router = useRouter();
@@ -79,8 +80,7 @@ const Header = () => {
 							className={`select-button
 						${pathname === '/blog' && 'select-button-active'}
 					`}
-							// onClick={() => router.push('/blog')}
-							onClick={() => alert('Coming soon!')}
+							onClick={() => router.push('/blog')}
 						>
 							<span className='gap-2 flex items-center md:text-md text-sm'>
 								<BookOpen className='h-4 w-4' />

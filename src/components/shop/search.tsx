@@ -28,7 +28,6 @@ type Category =
 	| 'Tutorials'
 	| 'Other';
 
-import { useSWRConfig } from 'swr';
 import { searchSlice } from '@/zustand/features/searchSlice';
 import { debounce } from 'lodash';
 
@@ -53,7 +52,6 @@ const Search = () => {
 	);
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [hideMenu, setHideMenu] = useState(false);
-	const { mutate } = useSWRConfig();
 	const setCategoryType = searchSlice((state) => state.setCategoryType);
 	const setSearchTerm = searchSlice((state) => state.setSearchTerm);
 
