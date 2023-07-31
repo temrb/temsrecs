@@ -36,7 +36,6 @@ const ProductItem = (props: Props) => {
 					fill
 					loading='lazy'
 					placeholder='blur'
-					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wr+3QAAAABJRU5ErkJggg=='
 					style={{ objectFit: 'contain' }}
 					alt={props?.imageAlt}
 					className={`${
