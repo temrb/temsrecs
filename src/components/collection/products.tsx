@@ -101,12 +101,10 @@ const Products = () => {
 			)}
 
 			{/* pagination */}
-
-			{/*TODO edge case if no products in next page*/}
 			<div
-				className='flex fixed bottom-0 z-40 w-full
-				h-20 items-center dark:bg-bgAccentDark bg-bgAccentLight justify-end px-4 border-t-2 
-				border-bgAccentDark dark:border-bgAccentLight space-x-6'
+				className='flex fixed bottom-0 z-40 w-full h-20 items-center 
+				bg-bgAccentLight/90 dark:bg-bgAccentDark/90 backdrop-filter backdrop-blur-md 
+				justify-end px-4 border-t-2 border-bgAccentDark dark:border-bgAccentLight space-x-6'
 			>
 				{isLoading ? (
 					<div className='flex'>
@@ -116,18 +114,18 @@ const Products = () => {
 					<>
 						{page > 0 && (
 							<button
-								className='primary-button flex items-center space-x-2'
+								className='primary-button'
 								onClick={() => setPage(page - 1)}
 							>
-								<span className='text-sm'>{'< Back'}</span>
+								<span className='text-lg'>{'< Back'}</span>
 							</button>
 						)}
 						{products?.length === 15 && (
 							<button
-								className='primary-button text-xs'
+								className='primary-button'
 								onClick={() => setPage(page + 1)}
 							>
-								<span className='text-sm'>{'Next >'}</span>
+								<span className='text-lg'>{'Next >'}</span>
 							</button>
 						)}
 						{products?.length === 0 && (
@@ -136,10 +134,10 @@ const Products = () => {
 					</>
 				)}
 				<Link
-					className=' justify-start items-center flex text-xs primary-button'
+					className='justify-start items-center flex primary-button'
 					href='/policies'
 				>
-					<BadgeInfo size={20} />
+					<span className='text-xs'>Disclosures</span>
 				</Link>
 			</div>
 		</div>

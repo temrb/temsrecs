@@ -34,15 +34,16 @@ const ProductItem = (props: Props) => {
 				<Image
 					src={props?.image}
 					fill
-					loading='eager'
+					loading='lazy'
 					placeholder='blur'
-					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhQJ/6tZ9OQAAAABJRU5ErkJggg=='
+					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wr+3QAAAABJRU5ErkJggg=='
 					style={{ objectFit: 'contain' }}
 					alt={props?.imageAlt}
 					className={`${
 						blur && 'blur-sm'
 					} transition-all ease-in-out duration-200 p-2`}
-					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+					quality={blur ? 1 : 10}
+					sizes='(max-width: 768px) 100vw, 33vw'
 				/>
 				<h2
 					className='absolute top-0 left-0 w-full p-2 items-start justify-start
@@ -81,16 +82,19 @@ const ProductItem = (props: Props) => {
 							}`}
 							onClick={handleCopy}
 						>
-							{copied ? (
-								<div className='flex space-x-1 items-center'>
-									<span className='text-xs font-semibold rounded-md'>
-										Copied!
-									</span>
-									<ClipboardCheck className='h-4' />
-								</div>
-							) : (
-								<Share2 className='h-4' />
-							)}
+							<div className='flex space-x-1 items-center'>
+								{copied ? (
+									<>
+										<span className='text-xs font-semibold'>Copied!</span>
+										<ClipboardCheck className='h-4' />
+									</>
+								) : (
+									<>
+										<span className='text-xs font-semibold'>Share</span>
+										<Share2 className='h-4' />
+									</>
+								)}
+							</div>
 						</button>
 					</div>
 				</div>
@@ -104,16 +108,16 @@ const ProductItem = (props: Props) => {
 						<p
 							// using sanity tag as key
 							key={tag}
-							className='flex bg-blue-600 dark:bg-blue-700 text-bgAccentLight
-							p-1 rounded-lg shadow-sm text-sm items-center justify-center capitalize
-							w-full'
+							className='flex bg-blue-600 dark:bg-blue-700 rounded-sm text-bgAccentLight
+								py-1 px-2 shadow-sm text-sm items-center justify-center capitalize
+								w-full'
 						>
 							{tag}
 						</p>
 					))}
 				</div>
 				{props?.productPrice && (
-					<p className='flex bg-rose-600 dark:bg-rose-700 items-center text-bgAccentLight p-1 rounded-lg'>
+					<p className='flex bg-rose-600 dark:bg-rose-700 rounded-sm px-2 items-center text-bgAccentLight py-1'>
 						${props?.productPrice}
 					</p>
 				)}

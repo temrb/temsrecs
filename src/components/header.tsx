@@ -6,7 +6,7 @@ import { Store, BookOpen } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import SocialItems from './social-item';
 import { SocialMedia } from '../../types/SocialMedia';
-import Search from './shop/search';
+import Search from './collection/search';
 
 const Header = () => {
 	const router = useRouter();
@@ -23,18 +23,19 @@ const Header = () => {
 		// { id: 5, type: 'youtube', link: 'https://www.youtube.com/' },
 		// { id: 6, type: 'threads', link: 'https://threads.net/' },
 		// { id: 7, type: 'medium', link: 'https://medium.com/' },
-		// {
-		// 	id: 8,
-		// 	type: 'amazon',
-		// 	link: 'https://www.amazon.com/shop/influencer-4c14be7c?ref_=cm_sw_r_cp_ud_aipsfshop_aipsfinfluencer-4c14be7c_6XM77RBD8PYH8D7TFPBR',
-		// },
+		{
+			id: 8,
+			type: 'amazon',
+			link: 'https://www.amazon.com/shop/temcareer',
+		},
 		// { id: 9, type: 'facebook', link: 'https://facebook.com/' },
 	];
 
 	return (
 		<header
-			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark 
-			bg-bgAccentLight dark:bg-bgAccentDark h-44 sticky top-0 z-20 items-center flex flex-col space-y-2'
+			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark
+			bg-bgAccentLight/90 dark:bg-bgAccentDark/90 backdrop-filter backdrop-blur-md
+			 h-44 sticky top-0 z-20 items-center flex flex-col space-y-2'
 		>
 			<div className='w-full justify-center items-center flex pt-2'>
 				<button
@@ -80,7 +81,8 @@ const Header = () => {
 							className={`select-button
 						${pathname === '/blog' && 'select-button-active'}
 					`}
-							onClick={() => router.push('/blog')}
+							// onClick={() => router.push('/blog')}
+							onClick={() => alert('Coming Soon!')}
 						>
 							<span className='gap-2 flex items-center md:text-md text-sm'>
 								<BookOpen className='h-4 w-4' />
