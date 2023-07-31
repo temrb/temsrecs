@@ -134,10 +134,10 @@ const Products = () => {
 					</>
 				)}
 				<Link
-					className='justify-start items-center flex primary-button'
+					className=' justify-start items-center flex text-xs primary-button'
 					href='/policies'
 				>
-					<span className='text-xs'>Disclosures</span>
+					<BadgeInfo size={20} />
 				</Link>
 			</div>
 		</div>
