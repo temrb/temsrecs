@@ -14,6 +14,7 @@ import {
 	Cpu,
 	Shirt,
 	HeartPulse,
+	CalendarRange,
 } from 'lucide-react';
 
 import { useWindowSize } from 'usehooks-ts';
@@ -96,6 +97,9 @@ const Search = () => {
 	return (
 		<div className='lg:w-3/5 md:w-5/6 space-y-4 p-4 pt-8 w-full flex flex-col items-center justify-center'>
 			<div className='w-full flex items-center space-x-2'>
+				<button className='primary-button' type='button'>
+					<CalendarRange className='h-6 w-6' />
+				</button>
 				<input
 					className='w-full primary-input flex'
 					type='text'
