@@ -40,7 +40,7 @@ const ProductItem = (props: Props) => {
 					className={`${
 						blur && 'blur-sm'
 					} transition-all ease-in-out duration-200 p-2`}
-					quality={blur ? 1 : 10}
+					quality={10}
 					sizes='(max-width: 768px) 100vw, 33vw'
 				/>
 				<h2
