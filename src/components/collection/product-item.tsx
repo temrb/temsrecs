@@ -35,7 +35,6 @@ const ProductItem = (props: Props) => {
 					src={props?.image}
 					fill
 					loading='lazy'
-					placeholder='blur'
 					style={{ objectFit: 'contain' }}
 					alt={props?.imageAlt}
 					className={`${
