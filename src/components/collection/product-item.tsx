@@ -35,13 +35,12 @@ const ProductItem = (props: Props) => {
 					src={props?.image}
 					fill
 					loading='lazy'
-					placeholder='blur'
 					style={{ objectFit: 'contain' }}
 					alt={props?.imageAlt}
 					className={`${
 						blur && 'blur-sm'
 					} transition-all ease-in-out duration-200 p-2`}
-					quality={blur ? 1 : 10}
+					quality={10}
 					sizes='(max-width: 768px) 100vw, 33vw'
 				/>
 				<h2
