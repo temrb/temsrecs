@@ -12,9 +12,8 @@ import {
 import useSWR from 'swr';
 import LoadingSpinner from '@/utils/loading-spinner.component';
 import { searchSlice } from '@/zustand/features/searchSlice';
-import { BadgeInfo } from 'lucide-react';
-import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
+import Navigation from '../navigation';
 
 const Products = () => {
 	const setPage = searchSlice((state) => state.setPage);
@@ -48,12 +47,12 @@ const Products = () => {
 		isValidating: isLoading,
 	} = useSWR(
 		searchTerm && categoryType
-			? `name-and-category-${searchTerm}-${categoryType}-page-${page}`
+			? `collectionItems-name-and-category-${searchTerm}-${categoryType}-page-${page}`
 			: categoryType
-			? `category-${categoryType}-page-${page}`
+			? `collectionItems-category-${categoryType}-page-${page}`
 			: searchTerm
-			? `name-${searchTerm}-page-${page}`
-			: `page-${page}-products`,
+			? `collectionItems-name-${searchTerm}-page-${page}`
+			: `collectionItems-page-${page}-products`,
 		fetcher,
 		{ revalidateOnFocus: false }
 	);
@@ -63,7 +62,7 @@ const Products = () => {
 			{/* products */}
 			{isLoading ? (
 				<div className='flex justify-center items-center w-full h-full'>
-					<LoadingSpinner size='h-10 w-10' />
+					<LoadingSpinner size='h-12' />
 				</div>
 			) : error ? (
 				<div className='flex justify-center items-center w-full h-full'>
@@ -83,7 +82,7 @@ const Products = () => {
 							duration: 0.6,
 							ease: [0.165, 0.84, 0.44, 1],
 						}}
-						className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8 md:pb-28 pb-28'
+						className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8'
 					>
 						{products?.map((product) => (
 							<ProductItem
@@ -97,49 +96,36 @@ const Products = () => {
 							/>
 						))}
 					</motion.div>
+
+					{isLoading ? (
+						<div className='flex'>
+							<LoadingSpinner size='h-12' />
+						</div>
+					) : (
+						<div className=' flex gap-4 items-center justify-end w-full p-6'>
+							{page > 0 && (
+								<button
+									className='primary-button'
+									onClick={() => setPage(page - 1)}
+								>
+									<span className='text-lg'>{'< Back'}</span>
+								</button>
+							)}
+							{products?.length === 15 && (
+								<button
+									className='primary-button'
+									onClick={() => setPage(page + 1)}
+								>
+									<span className='text-lg'>{'Next >'}</span>
+								</button>
+							)}
+							{products?.length === 0 && (
+								<span className='text-xs'>No Products 😢</span>
+							)}
+						</div>
+					)}
 				</AnimatePresence>
 			)}
-
-			{/* pagination */}
-			<div
-				className='flex fixed bottom-0 z-40 w-full h-20 items-center 
-				bg-bgAccentLight/90 dark:bg-bgAccentDark/90 backdrop-filter backdrop-blur-md 
-				justify-end px-4 border-t-2 border-bgAccentDark dark:border-bgAccentLight space-x-6'
-			>
-				{isLoading ? (
-					<div className='flex'>
-						<LoadingSpinner size='h-6 w-6' />
-					</div>
-				) : (
-					<>
-						{page > 0 && (
-							<button
-								className='primary-button'
-								onClick={() => setPage(page - 1)}
-							>
-								<span className='text-lg'>{'< Back'}</span>
-							</button>
-						)}
-						{products?.length === 15 && (
-							<button
-								className='primary-button'
-								onClick={() => setPage(page + 1)}
-							>
-								<span className='text-lg'>{'Next >'}</span>
-							</button>
-						)}
-						{products?.length === 0 && (
-							<span className='text-xs'>No Products 😢</span>
-						)}
-					</>
-				)}
-				<Link
-					className=' justify-start items-center flex text-xs primary-button'
-					href='/policies'
-				>
-					<BadgeInfo size={20} />
-				</Link>
-			</div>
 		</div>
 	);
 };

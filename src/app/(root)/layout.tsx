@@ -7,6 +7,7 @@ import { Poppins } from 'next/font/google';
 import Script from 'next/script';
 import Header from '@/components/header';
 import { Analytics } from '@vercel/analytics/react';
+import Navigation from '@/components/navigation';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -51,8 +52,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<>
 					<Header />
 					<section className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
-						{children}
+						<div className='md:pb-20 pb-24'>{children}</div>
 					</section>
+					<Navigation />
 				</>
 				{process.env.NODE_ENV === 'production' && <Analytics />}
 			</body>

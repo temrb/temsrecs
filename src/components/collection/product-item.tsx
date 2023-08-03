@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ArrowUpRight, Share2, ClipboardCheck } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface Props {
 	name: string;
@@ -15,22 +15,11 @@ interface Props {
 }
 
 const ProductItem = (props: Props) => {
-	const [copied, setCopied] = useState(false);
 	const [blur, setBlur] = useState(false);
-
-	const handleCopy = () => {
-		navigator.clipboard.writeText(props?.productLink);
-		setCopied(true);
-	};
 
 	return (
 		<div className='group flex flex-col dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'>
-			<div
-				className='relative w-full h-44'
-				onMouseLeave={() => {
-					setCopied(false);
-				}}
-			>
+			<div className='relative w-full h-44'>
 				<Image
 					src={props?.image}
 					fill
@@ -72,50 +61,25 @@ const ProductItem = (props: Props) => {
 						</div>
 					</button>
 				</div>
-				<div className='absolute bottom-0 right-0 m-2'>
-					<div className='flex items-center space-x-2'>
-						<button
-							className={`share-button ${
-								copied && 'bg-green-600 hover:bg-green-700'
-							}`}
-							onClick={handleCopy}
-						>
-							<div className='flex space-x-1 items-center'>
-								{copied ? (
-									<>
-										<span className='text-xs font-semibold'>Copied!</span>
-										<ClipboardCheck className='h-4' />
-									</>
-								) : (
-									<>
-										<span className='text-xs font-semibold'>Share</span>
-										<Share2 className='h-4' />
-									</>
-								)}
-							</div>
-						</button>
-					</div>
-				</div>
 			</div>
 			<div
 				className='flex w-full justify-between border-t-4 
 				dark:border-bgAccentLight/20 border-bgAccentDark/20 pt-2 p-2 space-x-2'
 			>
 				<div className='space-x-4 overflow-x-auto flex flex-row'>
-					{props?.tags.map((tag: string) => (
+					{props?.tags?.map((tag: string) => (
 						<p
 							// using sanity tag as key
 							key={tag}
-							className='flex bg-blue-600 dark:bg-blue-700 rounded-sm text-bgAccentLight
-								py-1 px-2 shadow-sm text-sm items-center justify-center capitalize
-								w-full'
+							className='flex bg-yellow-500/60 p-1 rounded-md shadow-md
+							text-xs items-center justify-center capitalize w-full'
 						>
 							{tag}
 						</p>
 					))}
 				</div>
 				{props?.productPrice && (
-					<p className='flex bg-rose-600 dark:bg-rose-700 rounded-sm px-2 items-center text-bgAccentLight py-1'>
+					<p className='flex text-xs p-1 rounded-md items-center'>
 						${props?.productPrice}
 					</p>
 				)}
