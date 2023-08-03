@@ -73,30 +73,31 @@ const Products = () => {
 					No Products 😢
 				</div>
 			) : (
-				<AnimatePresence>
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -30 }}
-						transition={{
-							duration: 0.6,
-							ease: [0.165, 0.84, 0.44, 1],
-						}}
-						className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8'
-					>
-						{products?.map((product) => (
-							<ProductItem
-								key={product?._id}
-								image={product?.imageLink}
-								imageAlt={product?.name + ' image alt'}
-								productLink={product?.productLink}
-								tags={product?.tags}
-								name={product?.name}
-								productPrice={product?.productPrice}
-							/>
-						))}
-					</motion.div>
-
+				<>
+					<AnimatePresence>
+						<motion.div
+							initial={{ opacity: 0, y: 30 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -30 }}
+							transition={{
+								duration: 0.6,
+								ease: [0.165, 0.84, 0.44, 1],
+							}}
+							className='grid gap-7 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 md:p-8'
+						>
+							{products?.map((product) => (
+								<ProductItem
+									key={product?._id}
+									image={product?.imageLink}
+									imageAlt={product?.name + ' image alt'}
+									productLink={product?.productLink}
+									tags={product?.tags}
+									name={product?.name}
+									productPrice={product?.productPrice}
+								/>
+							))}
+						</motion.div>
+					</AnimatePresence>
 					{isLoading ? (
 						<div className='flex'>
 							<LoadingSpinner size='h-12' />
@@ -124,7 +125,7 @@ const Products = () => {
 							)}
 						</div>
 					)}
-				</AnimatePresence>
+				</>
 			)}
 		</div>
 	);
