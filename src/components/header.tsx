@@ -2,15 +2,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Store, BookOpen } from 'lucide-react';
+// import { Store, BookOpen } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import SocialItems from './social-item';
 import { SocialMedia } from '../../types/SocialMedia';
-import Search from './collection/search';
+import Link from 'next/link';
+import { searchSlice } from '@/zustand/features/searchSlice';
 
 const Header = () => {
 	const router = useRouter();
 	const pathname = usePathname();
+
+	const resetPage = searchSlice((state) => state.resetPage);
 
 	const [viewSocials, setViewSocials] = useState(false);
 
@@ -35,9 +38,9 @@ const Header = () => {
 		<header
 			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark
 			bg-bgAccentLight/90 dark:bg-bgAccentDark/90 backdrop-filter backdrop-blur-md
-			 h-44 sticky top-0 z-20 items-center flex flex-col space-y-2'
+			 h-32 sticky top-0 z-20 items-center flex flex-col space-y-2'
 		>
-			<div className='w-full justify-center items-center flex pt-2'>
+			<div className='w-full justify-center items-center flex pt-3'>
 				<button
 					className='primary-button md:text-md text-sm'
 					onClick={() => setViewSocials(!viewSocials)}
@@ -58,19 +61,28 @@ const Header = () => {
 			flex-col space-y-4'
 				>
 					{/* title */}
-					<div className='flex flex-col text-center'>
+					<Link
+						className='flex flex-col text-center hover:scale-110 transition-transform 
+					duration-300 ease-in-out
+					'
+						href='/'
+					>
 						<h1 className='md:text-xl text-stone-600 dark:text-stone-300 text-lg font-bold'>
 							tem&apos;s recs
 						</h1>
 						<p className='text-xs font-light'>⭐️⭐️⭐️⭐️+ Rated Products</p>
-					</div>
+					</Link>
+
 					{/* nav items */}
-					<div className='space-x-4 flex '>
+					{/* <div className='space-x-3 flex '>
 						<button
 							className={`select-button
-						${pathname === '/' && 'select-button-active'}
+						${pathname === '/content/collection' && 'select-button-active'}
 					`}
-							onClick={() => router.push('/')}
+							onClick={() => {
+								router.push('/content/collection');
+								resetPage();
+							}}
 						>
 							<span className='gap-2 flex items-center md:text-md text-sm'>
 								<Store className='h-4 w-4' />
@@ -79,17 +91,19 @@ const Header = () => {
 						</button>
 						<button
 							className={`select-button
-						${pathname === '/blog' && 'select-button-active'}
+						${pathname === '/content/blog' && 'select-button-active'}
 					`}
-							// onClick={() => router.push('/blog')}
-							onClick={() => alert('Coming Soon!')}
+							onClick={() => {
+								router.push('/content/blog');
+								resetPage();
+							}}
 						>
 							<span className='gap-2 flex items-center md:text-md text-sm'>
 								<BookOpen className='h-4 w-4' />
 								Blog
 							</span>
 						</button>
-					</div>
+					</div> */}
 				</div>
 			)}
 		</header>

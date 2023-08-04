@@ -6,6 +6,28 @@ import { client } from './lib/client';
 import { Product } from '../types/Product';
 import { Blog } from '../types/Blog';
 
+export const getProducts = cache(async (page: number): Promise<Product[]> => {
+	return await client.fetch(
+		groq`*[_type == "product"] | order(_createdAt desc) [${page * 15}...${
+			(page + 1) * 15
+		}] {
+					_id,
+					_createdAt,
+					name,
+					tags,
+					imageLink,
+					productLink,
+					productPrice,
+				}`,
+		{
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
+		}
+	);
+});
+
 export const getProductsByCategory = cache(
 	async (category: string, page: number): Promise<Product[]> => {
 		return await client.fetch(
@@ -30,28 +52,6 @@ export const getProductsByCategory = cache(
 		);
 	}
 );
-
-export const getProducts = cache(async (page: number): Promise<Product[]> => {
-	return await client.fetch(
-		groq`*[_type == "product"] | order(_createdAt desc) [${page * 15}...${
-			(page + 1) * 15
-		}] {
-					_id,
-					_createdAt,
-					name,
-					tags,
-					imageLink,
-					productLink,
-					productPrice,
-				}`,
-		{
-			next: {
-				revalidate: 300,
-			},
-			cache: 'force-cache',
-		}
-	);
-});
 
 export const getProductsByName = cache(
 	async (name: string, page: number): Promise<Product[]> => {
@@ -104,26 +104,55 @@ export const getProductsByNameAndCat = cache(
 	}
 );
 
-// export async function getPage(): Promise<Blog[]> {
-// 	return client.fetch(
-// 		groq`*[_type == "page"]{
-//       _id,
-//       _createdAt,
-//       title,
-//       "slug": slug.current
-//     }`
-// 	);
-// }
-//
-// export async function getPost(slug: string): Promise<Blog> {
-// 	return client.fetch(
-// 		groq`*[_type == "page" && slug.current == $slug][0]{
-//       _id,
-//       _createdAt,
-//       title,
-//       "slug": slug.current,
-//       content
-//     }`,
-// 		{ slug }
-// 	);
-// }
+export const getBlogPosts = cache(async (page: number): Promise<Blog[]> => {
+	const result = await client.fetch(
+		groq`
+      *[_type == "post"] | order(_createdAt desc) [${page * 15}...${
+			(page + 1) * 15
+		}] 
+      {
+		_id,
+		_createdAt,
+		title,
+		slug,
+		excerpt,
+		coverImage,
+		tags,
+        // Words per minute: 180
+        "estimatedReadTime": round(length(pt::text(content)) / 5 / 180),
+		"excerpt": array::join(string::split((pt::text(content)), "")[0...96], "") + "...",
+      }
+    `,
+		{
+			next: {
+				revalidate: 300,
+			},
+			cache: 'force-cache',
+		}
+	);
+
+	return result;
+});
+
+export async function getBlogPost(slug: string): Promise<Blog> {
+	if (!slug) {
+		throw new Error('Invalid slug');
+	}
+
+	return await client.fetch(
+		groq`
+      *[_type == "post" && slug.current == "${slug}"][0]{
+        _id,
+        _createdAt,
+        title,
+        slug,
+        content,
+        coverImage,
+        tags,
+        // Words per minute: 180
+        "estimatedReadTime": round(length(pt::text(content)) / 5 / 180),
+      }
+    `,
+		{ slug }
+	);
+}

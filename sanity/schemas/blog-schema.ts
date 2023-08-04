@@ -17,10 +17,72 @@ const blog = {
 			options: { source: 'title', maxLength: 96 },
 		},
 		{
+			name: 'coverImage',
+			title: 'Cover Image',
+			type: 'url',
+			placeholder: 'https://www.example.com/image.jpg',
+			validation: (Rule: any) => Rule.required(),
+		},
+		{
 			name: 'content',
 			title: 'Content',
 			type: 'array',
-			of: [{ type: 'block' }],
+			of: [
+				{ type: 'block' },
+				{
+					name: 'BodyImage',
+					title: 'Body Image',
+					type: 'object',
+					fields: [
+						{
+							name: 'url',
+							type: 'url',
+							title: 'Image URL',
+							validation: (Rule: any) =>
+								Rule.required().uri({ scheme: ['https'] }),
+						},
+						{
+							name: 'alt',
+							type: 'string',
+							title: 'Alternative text',
+						},
+					],
+				},
+				{
+					name: 'BodyVideo',
+					title: 'Body Video',
+					type: 'object',
+					fields: [
+						{
+							name: 'url',
+							title: 'Video URL',
+							type: 'url',
+							validation: (Rule: any) =>
+								Rule.required().uri({ scheme: ['https'] }),
+						},
+						{
+							name: 'caption',
+							title: 'Caption',
+							type: 'string',
+						},
+					],
+				},
+				{
+					name: 'productLinkObject',
+					title: 'Product Link',
+					type: 'object',
+					fields: [
+						{
+							name: 'productLink',
+							title: 'Product URL',
+							type: 'url',
+							placeholder: 'https://www.amazon.com',
+							validation: (Rule: any) =>
+								Rule.required().uri({ scheme: ['https'] }),
+						},
+					],
+				},
+			],
 		},
 		{
 			name: 'tags',
@@ -40,21 +102,6 @@ const blog = {
 					{ title: 'Other', value: 'Other' },
 				],
 			},
-			validation: (Rule: any) => Rule.required(),
-		},
-		// use s3 for custom image upload
-		{
-			name: 'imageLink',
-			title: 'Product Image',
-			type: 'url',
-			placeholder: 'https://www.example.com/image.jpg',
-			validation: (Rule: any) => Rule.required(),
-		},
-		{
-			name: 'productLink',
-			title: 'Product URL',
-			type: 'url',
-			placeholder: 'https://www.amazon.com',
 			validation: (Rule: any) => Rule.required(),
 		},
 	],

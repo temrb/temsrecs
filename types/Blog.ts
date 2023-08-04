@@ -6,9 +6,10 @@ export type Blog = {
 	_id: string;
 	_createdAt: Date;
 	title: string;
-	slug: string;
+	slug: { current: string };
 	content: PortableTextBlock[];
+	excerpt: string;
 	tags: string[];
-	imageLink: string;
-	productLink: string;
+	coverImage: string;
+	estimatedReadTime: number;
 };

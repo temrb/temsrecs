@@ -1,16 +1,13 @@
 /** @format */
 
-import React from 'react';
-import Search from '@/components/collection/search';
-import Products from '@/components/collection/products';
+import Products from '@/components/products';
+import Search from '@/components/search';
 
-const Page = () => {
+export default function Page() {
 	return (
-		<div className='w-full justify-center flex flex-col items-center'>
+		<section className='w-full justify-center flex flex-col items-center'>
 			<Search />
 			<Products />
-		</div>
+		</section>
 	);
-};
-
-export default Page;
+}
