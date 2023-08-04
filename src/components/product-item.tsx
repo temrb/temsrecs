@@ -17,6 +17,8 @@ interface Props {
 const ProductItem = (props: Props) => {
 	const [blur, setBlur] = useState(false);
 
+	throw new Error('This is an error');
+
 	return (
 		<div className='group flex flex-col dark:border-bgAccentLight/20 border-bgAccentDark/20 border-4 rounded-xl'>
 			<div className='relative w-full h-44'>

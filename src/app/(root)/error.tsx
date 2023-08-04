@@ -17,5 +17,9 @@ export default function Error({
 		console.error(error);
 	}, [error]);
 
-	return <ErrorDisplay errorText='Something went wrong!' reset={reset} />;
+	return (
+		<section className='flex w-full h-full justify-center items-center'>
+			<ErrorDisplay errorText='Something went wrong!' reset={reset} />
+		</section>
+	);
 }

@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Store, BookOpen } from 'lucide-react';
+// import { Store, BookOpen } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import SocialItems from './social-item';
 import { SocialMedia } from '../../types/SocialMedia';
@@ -38,7 +38,7 @@ const Header = () => {
 		<header
 			className='w-full border-b-2 dark:border-bgAccentLight border-bgAccentDark
 			bg-bgAccentLight/90 dark:bg-bgAccentDark/90 backdrop-filter backdrop-blur-md
-			 h-44 sticky top-0 z-20 items-center flex flex-col space-y-2'
+			 h-32 sticky top-0 z-20 items-center flex flex-col space-y-2'
 		>
 			<div className='w-full justify-center items-center flex pt-3'>
 				<button
@@ -74,7 +74,7 @@ const Header = () => {
 					</Link>
 
 					{/* nav items */}
-					<div className='space-x-3 flex '>
+					{/* <div className='space-x-3 flex '>
 						<button
 							className={`select-button
 						${pathname === '/content/collection' && 'select-button-active'}
@@ -103,7 +103,7 @@ const Header = () => {
 								Blog
 							</span>
 						</button>
-					</div>
+					</div> */}
 				</div>
 			)}
 		</header>
