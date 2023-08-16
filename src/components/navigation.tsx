@@ -6,8 +6,8 @@ import React from 'react';
 
 const Navigation = () => {
 	return (
-		<div
-			className='flex fixed bottom-0 z-40 w-full h-20 items-center
+		<footer
+			className='flex fixed bottom-0 w-full h-20 items-center
 				bg-bgAccentLight/90 dark:bg-bgAccentDark/90 backdrop-filter backdrop-blur-md 
 				justify-end px-4 border-t-2 border-bgAccentDark dark:border-bgAccentLight space-x-6'
 		>
@@ -17,7 +17,7 @@ const Navigation = () => {
 			>
 				<BadgeInfo size={20} />
 			</Link>
-		</div>
+		</footer>
 	);
 };
 

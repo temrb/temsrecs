@@ -40,13 +40,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			<body
 				className={`${poppins.className} dark:bg-bgAccentDark bg-bgAccentLight text-bgAccentDark dark:text-bgAccentLight`}
 			>
-				<>
-					<Header />
-					<section className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
-						<div className='md:pb-20 pb-24'>{children}</div>
-					</section>
-					<Navigation />
-				</>
+				<Header />
+				<section className='h-[calc(100vh_-_11rem)] dark:bg-bgAccentDark bg-bgAccentLight'>
+					<div className='md:pb-20 pb-24'>{children}</div>
+				</section>
+				<Navigation />
+
 				{process.env.NODE_ENV === 'production' && <Analytics />}
 			</body>
 		</html>
