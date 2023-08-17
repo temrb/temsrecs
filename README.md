@@ -37,4 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # temsrecs
 
-Super simple affiliate based recommendation site for tech products. SanityCMS & Analytics.
+Product recommendation site for affiliate based products. 
+
+Project for YouTube walkthrough; repo used for walkthrough: https://github.com/temrb/temsrecs-yt
